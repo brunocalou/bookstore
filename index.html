@@ -1,0 +1,182 @@
+<!doctype html>
+<html>
+    <head>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/dropdowns-enhancement.css">
+        
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="/js/jquery-2.1.4.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/dropdowns-enhancement.js"></script>
+        <script src="/js/behavior.js"></script>
+        
+        <link rel="stylesheet" href="/css/stylesheet.css">
+
+    </head>
+    <body>
+        
+        <div class="modal fade " id="book-info-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">Book Viewer</h4>
+                        
+                    </div>
+                    <div class="modal-body">
+                        <form id="book-form">
+                                <div class="form-group">
+                                    <label for="book-title" class="control-label">Title</label>
+                                    <input type="text" class="form-control" id="book-title">
+                                </div>
+                                <div class="form-group">
+                                    <label for="book-author" class="control-label">Author</label>
+                                    <input type="text" class="form-control" id="book-author">
+                                </div>
+                                <div class="form-group">
+                                    <label for="book-category" class="control-label">Category</label>
+                                    <input class="form-control" id="book-category"></input>
+                                </div>
+                                <div class="form-group">
+                                    <label for="book-isbn" class="control-label">ISBN</label>
+                                    <input class="form-control" id="book-isbn"></input>
+                                </div>
+                        </form>
+                        <div id="book-form-cover">
+<input type="file" id="fileInput" onchange="readURL(this)" style="visibility:hidden;position:absolute;top:-50;left:-50"/>
+                            <a href="javascript:onLoad();"><img src="img/zoom-seach-icon.png" /></a>
+                            </input>
+                        </div>
+            <div id="modal-danger-zone">
+                <h4>Danger Zone</h4>
+                <button type="button" class="btn btn-primary btn-danger">Delete Book</button>
+            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary btn-danger">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section id="top-container" class="parallax">
+            <div id="top">
+                <div id="title">
+                    <h1>Bookstore</h1>
+                </div>
+                <!--data-spy="affix" data-offset-top="500"-->
+                <div id="search-bar" class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>  
+                        </button>
+                    </div>
+                </div><!-- /input-group -->
+            </div>
+        </section>
+        
+        <section id="sidemenu">
+            <button class="btn btn-md btn-danger" type="button" onclick="getBook()">
+                            <span class="glyphicon glyphicon-plus"></span> Add a book
+            </button>
+            <ul id="categories">
+                <li class="categories-header">Categories</li>
+                <li>All (0)</li>
+                <li>Fiction (0)</li>
+                <li>Fantasy (0)</li>
+                <li>Terror (0)</li>
+                <li>Humor (0)</li>
+            </ul>
+            
+        </section>
+
+        <section id="books">
+            <section id="filters">
+                   <div class="input-group-btn">
+                        <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" data-placeholder="false">Organize by <span class="caret"></span></button>
+                        <ul id="categories-list" class="dropdown-menu" role="menu" >
+                            <li>
+                                <input type="radio" id="organize-none" name="organize-options" value="VALUE" checked="checked">
+                                <label for="organize-none">None</label>
+                            </li>
+                            <li>
+                                <input type="radio" id="organize-name" name="organize-options" value="VALUE">
+                                <label for="organize-name">Name</label>
+                            </li>
+                            <li>
+                                <input type="radio" id="organize-category" name="organize-options" value="VALUE">
+                                <label for="organize-category">Category</label>
+                            </li>
+                            <li>
+                                <input type="radio" id="organize-isbn" name="organize-options" value="VALUE">
+                                <label for="organize-isbn">ISBN</label>
+                            </li> 
+                        </ul>
+                    </div>
+                    <div class="input-group-btn">
+                        <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" data-placeholder="false">Order <span class="caret"></span></button>
+                        <ul id="order-list" class="dropdown-menu" role="menu" >
+                            <li>
+                                <input type="radio" id="organize-order-asc" name="organize-order" value="VALUE" checked="checked">
+                                <label for="organize-order-asc">Ascending</label>
+                            </li>
+                            <li>
+                                <input type="radio" id="organize-order-desc" name="organize-order" value="VALUE">
+                                <label for="organize-order-desc">Descending</label>
+                            </li>
+                       </ul>
+                    </div>
+            </section>
+            
+
+            <div id="book-list">
+<!--                    <h1 id="book-list-empty-message">No books were found</h1>-->
+                <div>
+                    <button book-id="1">
+                        <img src="img/guia_mochileiro_1.jpg" />
+                        <h3>Douglas Adams - O guia do mochileiro das galáxias</h3>
+                    </button>
+                </div>
+                <div>
+                    <button book-id="2">
+                        <img src="img/guia_mochileiro_2.jpg" />
+                        <h3>Douglas Adams - Praticamente inofensiva</h3>
+                    </button>
+                </div>
+                <div>
+                    <button book-id="3">
+                        <img src="img/guia_mochileiro_3.jpg" />
+                        <h3>Douglas Adams - O restaurante no fim do universo</h3>
+                    </button>
+                </div>
+                <div>
+                    <button book-id="4">
+                        <img src="img/guia_mochileiro_4.jpg" />
+                        <h3>Douglas Adams - A vida, o universo, e tudo mais</h3>
+                    </button>
+                </div>
+                <div>
+                    <button book-id="5">
+                        <img src="img/guia_mochileiro_5.jpg" />
+                        <h3>Douglas Adams - Até mais, e obrigado pelos peixes</h3>
+                    </button>
+                </div>
+            </div>
+        </section>
+        <section id="footer">
+            <div>
+                <p>Created by Bruno Calou Alves</p>
+                <p>Copyright ©</p>
+            </div>
+            <div id="footer-logos">
+                <a href="https://github.com/brunocalou">
+                    <img src="img/GitHub-Mark-32px.png" />
+                </a>
+            </div>
+        </section>
+    </body>
+</html>
