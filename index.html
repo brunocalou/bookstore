@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html ng-app="app">
     <head>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -11,10 +11,16 @@
         <script src="/js/dropdowns-enhancement.js"></script>
         <script src="/js/behavior.js"></script>
         
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.min.js"></script>
+        
+        <script src="js/controllers.js"></script>
+        
         <link rel="stylesheet" href="/css/stylesheet.css">
+        
 
     </head>
-    <body>
+    <body ng-controller="BooksCtrl">
         
         <div class="modal fade " id="book-info-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -28,34 +34,42 @@
                         <form id="book-form">
                                 <div class="form-group">
                                     <label for="book-title" class="control-label">Title</label>
-                                    <input type="text" class="form-control" id="book-title">
+                                    <input type="text" class="form-control" id="book-title"
+                                           ng-model="current_book.title" value="{{current_book.title}}"
+                                           ng-keyup="verifyBookInfo()">
                                 </div>
                                 <div class="form-group">
                                     <label for="book-author" class="control-label">Author</label>
-                                    <input type="text" class="form-control" id="book-author">
+                                    <input type="text" class="form-control" id="book-author"
+                                           ng-model="current_book.author" value="{{current_book.author}}"
+                                           ng-keyup="verifyBookInfo()">
                                 </div>
                                 <div class="form-group">
                                     <label for="book-category" class="control-label">Category</label>
-                                    <input class="form-control" id="book-category"></input>
+                                    <input class="form-control" id="book-category"
+                                           ng-model="current_book.category" value="{{current_book.category}}"
+                                           ng-keyup="verifyBookInfo()">
                                 </div>
                                 <div class="form-group">
                                     <label for="book-isbn" class="control-label">ISBN</label>
-                                    <input class="form-control" id="book-isbn"></input>
+                                    <input class="form-control" id="book-isbn"
+                                           ng-model="current_book.isbn" value="{{current_book.isbn}}"
+                                           ng-keyup="verifyBookInfo()">
                                 </div>
                         </form>
                         <div id="book-form-cover">
-<input type="file" id="fileInput" onchange="readURL(this)" style="visibility:hidden;position:absolute;top:-50;left:-50"/>
-                            <a href="javascript:onLoad();"><img src="img/zoom-seach-icon.png" /></a>
+<input type="file" id="fileInput" ng-model="confirmed" onchange="angular.element(this).scope().fileNameChanged(this)" style="visibility:hidden;position:absolute;top:-50;left:-50"/>
+                            <a href="" ng-click="openFileDialog()"><img ng-src="{{current_book.image}}" ng-model="current_book.image" /></a>
                             </input>
                         </div>
-            <div id="modal-danger-zone">
+            <div id="modal-danger-zone" ng-show="show_danger_zone">
                 <h4>Danger Zone</h4>
-                <button type="button" class="btn btn-primary btn-danger">Delete Book</button>
+                <button id="modal-delete" type="button" class="btn btn-primary btn-danger" ng-click="delete()">Delete Book</button>
             </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary btn-danger">Save</button>
+                        <button id="modal-save" type="button" class="btn btn-primary btn-danger" ng-click="save()">Save</button>
                     </div>
                 </div>
             </div>
@@ -68,7 +82,7 @@
                 </div>
                 <!--data-spy="affix" data-offset-top="500"-->
                 <div id="search-bar" class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
+                    <input type="text" class="form-control" placeholder="Search for..." ng-model="search.title">
 
                     <div class="input-group-btn">
                         <button type="button" class="btn btn-danger">
@@ -80,16 +94,16 @@
         </section>
         
         <section id="sidemenu">
-            <button class="btn btn-md btn-danger" type="button" onclick="getBook()">
+            <button class="btn btn-md btn-danger" type="button" ng-click="editBook()">
                             <span class="glyphicon glyphicon-plus"></span> Add a book
             </button>
             <ul id="categories">
                 <li class="categories-header">Categories</li>
-                <li>All (0)</li>
-                <li>Fiction (0)</li>
-                <li>Fantasy (0)</li>
-                <li>Terror (0)</li>
-                <li>Humor (0)</li>
+                <li ng-model="categories.all">All ({{categories.all}})</li>
+                <li ng-model="categories.fiction">Fiction ({{categories.fiction}})</li>
+                <li ng-model="categories.fantasy">Fantasy ({{categories.fantasy}})</li>
+                <li ng-model="categories.terror">Terror ({{categories.terror}})</li>
+                <li ng-model="categories.humor">Humor ({{categories.humor}})</li>
             </ul>
             
         </section>
@@ -133,38 +147,14 @@
             </section>
             
 
-            <div id="book-list">
-<!--                    <h1 id="book-list-empty-message">No books were found</h1>-->
-                <div>
-                    <button book-id="1">
-                        <img src="img/guia_mochileiro_1.jpg" />
-                        <h3>Douglas Adams - O guia do mochileiro das galáxias</h3>
+            <div id="book-list" >
+                <div ng-repeat="book in books | filter:search">
+                    <button ng-click="editBook(book)">
+                        <img ng-src="{{book.image}}" />
+                        <h3>{{book.author}} - {{book.title}}</h3>
                     </button>
                 </div>
-                <div>
-                    <button book-id="2">
-                        <img src="img/guia_mochileiro_2.jpg" />
-                        <h3>Douglas Adams - Praticamente inofensiva</h3>
-                    </button>
-                </div>
-                <div>
-                    <button book-id="3">
-                        <img src="img/guia_mochileiro_3.jpg" />
-                        <h3>Douglas Adams - O restaurante no fim do universo</h3>
-                    </button>
-                </div>
-                <div>
-                    <button book-id="4">
-                        <img src="img/guia_mochileiro_4.jpg" />
-                        <h3>Douglas Adams - A vida, o universo, e tudo mais</h3>
-                    </button>
-                </div>
-                <div>
-                    <button book-id="5">
-                        <img src="img/guia_mochileiro_5.jpg" />
-                        <h3>Douglas Adams - Até mais, e obrigado pelos peixes</h3>
-                    </button>
-                </div>
+                <h1 ng-show="no_books_found" id="book-list-empty-message">No books were found</h1>
             </div>
         </section>
         <section id="footer">
