@@ -6,14 +6,14 @@ var Server = mongo.Server,
     BSON = mongo.BSONPure;
  
 var server = new Server('localhost', 27017, {auto_reconnect: true});
-db = new Db('winedb', server);
+db = new Db('bookdb', server);
  
 db.open(function(err, db) {
     if(!err) {
-        console.log("Connected to 'winedb' database");
-        db.collection('wines', {strict:true}, function(err, collection) {
+        console.log("Connected to 'bookdb' database");
+        db.collection('books', {strict:true}, function(err, collection) {
             if (err) {
-                console.log("The 'wines' collection doesn't exist. Creating it with sample data...");
+                console.log("The 'books' collection doesn't exist. Creating it with sample data...");
                 populateDB();
             }
         });
@@ -22,8 +22,8 @@ db.open(function(err, db) {
  
 exports.findById = function(req, res) {
     var id = {'_id': new ObjectId(req.params.id)};
-    console.log('Retrieving wine: ' + req.params.id);
-    db.collection('wines', function(err, collection) {
+    console.log('Retrieving book: ' + req.params.id);
+    db.collection('books', function(err, collection) {
         collection.findOne(id, function(err, item) {
             if(err) {
                 res.send({'error': 'An error has occurred'});
@@ -35,18 +35,18 @@ exports.findById = function(req, res) {
 };
  
 exports.findAll = function(req, res) {
-    db.collection('wines', function(err, collection) {
+    db.collection('books', function(err, collection) {
         collection.find().toArray(function(err, items) {
             res.send(items);
         });
     });
 };
  
-exports.addWine = function(req, res) {
-    var wine = req.body;
-    console.log('Adding wine: ' + JSON.stringify(wine));
-    db.collection('wines', function(err, collection) {
-        collection.insert(wine, {safe:true}, function(err, result) {
+exports.addbook = function(req, res) {
+    var book = req.body;
+    console.log('Adding book: ' + JSON.stringify(book));
+    db.collection('books', function(err, collection) {
+        collection.insert(book, {safe:true}, function(err, result) {
             if (err) {
                 res.send({'error':'An error has occurred'});
             } else {
@@ -57,28 +57,28 @@ exports.addWine = function(req, res) {
     });
 }
  
-exports.updateWine = function(req, res) {
+exports.updatebook = function(req, res) {
     var id = req.params.id;
-    var wine = req.body;
-    console.log('Updating wine: ' + id);
-    console.log(JSON.stringify(wine));
-    db.collection('wines', function(err, collection) {
-        collection.update({'_id':new ObjectId(req.params.id)}, wine, {safe:true}, function(err, result) {
+    var book = req.body;
+    console.log('Updating book: ' + id);
+    console.log(JSON.stringify(book));
+    db.collection('books', function(err, collection) {
+        collection.update({'_id':new ObjectId(req.params.id)}, book, {safe:true}, function(err, result) {
             if (err) {
-                console.log('Error updating wine: ' + err);
+                console.log('Error updating book: ' + err);
                 res.send({'error':'An error has occurred'});
             } else {
                 console.log('' + result + ' document(s) updated');
-                res.send(wine);
+                res.send(book);
             }
         });
     });
 }
  
-exports.deleteWine = function(req, res) {
+exports.deletebook = function(req, res) {
     var id = req.params.id;
-    console.log('Deleting wine: ' + id);
-    db.collection('wines', function(err, collection) {
+    console.log('Deleting book: ' + id);
+    db.collection('books', function(err, collection) {
         collection.remove({'_id':new ObjectId(req.params.id)}, {safe:true}, function(err, result) {
             if (err) {
                 res.send({'error':'An error has occurred - ' + err});
@@ -95,28 +95,45 @@ exports.deleteWine = function(req, res) {
 // You'd typically not find this code in a real-life app, since the database would already exist.
 var populateDB = function() {
  
-    var wines = [
+    var books = [
     {
-        name: "CHATEAU DE SAINT COSME",
-        year: "2009",
-        grapes: "Grenache / Syrah",
-        country: "France",
-        region: "Southern Rhone",
-        description: "The aromas of fruit and spice...",
-        picture: "saint_cosme.jpg"
+        'title': 'O guia do mochileiro das galáxias',
+        'author': 'Douglas Adams',
+        'image': 'guia_mochileiro_1.jpg',
+        'isbn': "000",
+        'category': 'Fiction'
     },
     {
-        name: "LAN RIOJA CRIANZA",
-        year: "2006",
-        grapes: "Tempranillo",
-        country: "Spain",
-        region: "Rioja",
-        description: "A resurgence of interest in boutique vineyards...",
-        picture: "lan_rioja.jpg"
+        'title': 'Praticamente inofensiva',
+        'author': 'Douglas Adams',
+        'image': 'guia_mochileiro_2.jpg',
+        'isbn': "001",
+        'category': 'Fiction'
+    },
+    {
+        'title': 'O restaurante no fim do universo',
+        'author': 'Douglas Adams',
+        'image': 'guia_mochileiro_3.jpg',
+        'isbn': "002",
+        'category': 'Fiction'
+    },
+    {
+        'title': 'A vida, o universo, e tudo mais',
+        'author': 'Douglas Adams',
+        'image': 'guia_mochileiro_4.jpg',
+        'isbn': "003",
+        'category': 'Fiction'
+    },
+    {
+        'title': 'Até mais, e obrigado pelos peixes',
+        'author': 'Douglas Adams',
+        'image': 'guia_mochileiro_5.jpg',
+        'isbn': "004",
+        'category': 'Fiction'
     }];
  
-    db.collection('wines', function(err, collection) {
-        collection.insert(wines, {safe:true}, function(err, result) {});
+    db.collection('books', function(err, collection) {
+        collection.insert(books, {safe:true}, function(err, result) {});
     });
  
 };

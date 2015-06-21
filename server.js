@@ -1,5 +1,5 @@
 var express = require('express'),
-    wine = require('./routes/books');
+    book = require('./routes/books');
 	logger = require('morgan'),
 	http = require('http'),
 	bodyParser = require('body-parser');;
@@ -14,11 +14,11 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/wines', wine.findAll);
-app.get('/wines/:id', wine.findById);
-app.post('/wines', wine.addWine);
-app.put('/wines/:id', wine.updateWine);
-app.delete('/wines/:id', wine.deleteWine);
+app.get('/books', book.findAll);
+app.get('/books/:id', book.findById);
+app.post('/books', book.addbook);
+app.put('/books/:id', book.updatebook);
+app.delete('/books/:id', book.deletebook);
 
 // app.listen(3000);
 // console.log('Listening on port 3000...');
