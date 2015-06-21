@@ -1,0 +1,247 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(245, 245, 245);
+}
+
+body > section {
+}
+
+#top {
+    width: 100%;
+    height: 35em;
+}
+
+#book-list {
+    text-decoration: none;
+    list-style: none;
+}
+
+#search-bar {
+    padding-top: 18em;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+#top .input-group:not(.affix) {
+/*    transition: width 0.5s ease-out;*/
+}
+
+#top .affix {
+    position: fixed;
+    top: 0;
+    padding-left: 8em;
+    padding-right: 8em;
+    padding-bottom: 0.3em;
+    padding-top: 0.3em;
+    width: 100%;
+}
+
+.parallax {
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+#top-container {
+    background-image: url("/img/cover.jpg");
+}
+
+#top {
+    background-color: rgba(0,0,0,0.1);
+    opacity: 1;
+}
+
+.dropdown-menu > li > input:checked ~ label,
+.dropdown-menu > li > input:checked ~ label:hover,
+.dropdown-menu > li > input:checked ~ label:focus,
+.dropdown-menu > .active > label,
+.dropdown-menu > .active > label:hover,
+.dropdown-menu > .active > label:focus {
+    background-color: #c12e2a;
+}
+
+#title {
+    padding-top: 3em;
+    color: white;
+    text-align: center;
+}
+
+#title h1 {
+    font-size: 6em;
+    display: inline;
+}
+
+
+#filters {
+    padding: 0.5%;
+    margin-bottom: 0.5%;
+    border-bottom: 1px solid rgb(209, 209, 209);
+}
+
+#filters div {
+    width: auto;
+    border-style: solid;
+    border-color: transparent;
+    border: 0;
+}
+
+#sidemenu {
+    width: 15em;
+    float: left;
+}
+
+#sidemenu button {
+    width: 100%;
+}
+
+#categories {
+    list-style: none;
+    padding: 0;
+}
+
+#categories label:hover,
+#categories label.active{
+    background-color: #d9534f;
+    color: white;
+}
+
+#categories label {
+    padding-left: 1.2em;
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
+    width: 100%;
+    margin-top: 0.3em;
+    background-color: white;
+}
+
+.categories-header {
+    padding-left: 0.3em !important;
+    background-color: #d9534f !important;
+    color: white;
+}
+
+#books, #sidemenu{
+    margin: 1%;
+}
+
+#books {
+    margin-left: 17em;
+    background: transparent;
+}
+
+#book-list-container {
+    background-color: red;
+    display: inline-block;
+    text-align: center;
+    margin: 0 auto;
+}
+
+#book-list {
+    text-align: center;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+#book-list button {
+    background: none;
+    border: 0;
+    outline: 0;
+    padding: 1em;
+}
+
+#book-list div {
+    text-align: center;
+    background-color: white;
+    margin: 0.5em;
+    width: 20em;
+    height: 25em;
+}
+
+#book-list img {
+    height: 80%;
+    width: 100%;
+}
+
+#book-list h3 {
+    padding-top: 0.2em;
+    height: 15%;
+    font-size: 1.3em;
+    overflow: hidden;
+}
+
+#book-list-empty-message {
+    color: #7e7e7e;
+    margin-top: 5em;
+    margin-bottom: 5em;
+}
+
+#book-isbn {
+    width: 10em;
+}
+
+#book-category,
+#book-author{
+    width: 15em;
+}
+
+#book-title {
+    width: 20em;
+}
+
+#book-form {
+    width: 60%;
+    display: inline-block;
+}
+
+#book-form-cover {
+    margin-top: 5em;
+    vertical-align: top;
+    display: inline-block;
+    position: relative;
+}
+
+#book-form-cover-button {
+    outline: 0;
+    background: none;
+    border: 0;
+}
+
+#book-form-cover,
+#book-form-cover img{
+    width: 12em;
+    height:auto;
+}
+
+#book-form-cover img {
+    object-fit: scale-down;
+}
+
+#modal-danger-zone h4 {
+    color: #c12e2a;
+    border-bottom: 1px solid #c12e2a;
+    padding: 0.2em;
+}
+
+#footer {
+    width: 98%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    padding-top: 1.5em;
+    padding-bottom: 0.1em;
+    border-top: 1px solid #c6c6c6;
+}
+
+#footer * {
+    margin: 0.1em;
+    font-size: 1.1em;
+    color: #7e7e7e;
+}
+
+#footer-logos {
+    margin-top: 0.5em;
+}
