@@ -97,6 +97,7 @@
             <button class="btn btn-md btn-danger" type="button" ng-click="editBook()">
                             <span class="glyphicon glyphicon-plus"></span> Add a book
             </button>
+<!--
             <ul id="categories">
                 <li class="categories-header">Categories</li>
                 <li ng-model="categories.all">All ({{categories.all}})</li>
@@ -105,6 +106,28 @@
                 <li ng-model="categories.terror">Terror ({{categories.terror}})</li>
                 <li ng-model="categories.humor">Humor ({{categories.humor}})</li>
             </ul>
+-->
+            
+            <div id="categories" class="btn-group" data-toggle="buttons">
+                <label class="categories-header btn">
+                    <input type="checkbox">Categories
+                </label>
+                <label class="btn active" ng-click="updateCategories('')">
+                    <input type="radio" name="categories">All ({{categories.all}})
+                </label>
+                <label class="btn" ng-click="updateCategories('fiction')">
+                    <input type="radio" name="categories">Fiction ({{categories.fiction}})
+                </label>
+                <label class="btn" ng-click="updateCategories('fantasy')">
+                    <input type="radio" name="categories">Fantasy ({{categories.fantasy}})
+                </label>
+                <label class="btn" ng-click="updateCategories('terror')">
+                    <input type="radio" name="categories">Terror ({{categories.terror}})
+                </label>
+                <label class="btn" ng-click="updateCategories('humor')">
+                    <input type="radio" name="categories">Humor ({{categories.humor}})
+                </label>
+            </div>
             
         </section>
 
@@ -114,19 +137,23 @@
                         <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" data-placeholder="false">Organize by <span class="caret"></span></button>
                         <ul id="categories-list" class="dropdown-menu" role="menu" >
                             <li>
-                                <input type="radio" id="organize-none" name="organize-options" value="VALUE" checked="checked">
+                                <input type="radio" id="organize-none" name="organize-options" value="id" ng-model="order" checked="checked">
                                 <label for="organize-none">None</label>
                             </li>
                             <li>
-                                <input type="radio" id="organize-name" name="organize-options" value="VALUE">
-                                <label for="organize-name">Name</label>
+                                <input type="radio" id="organize-title" name="organize-options" value="title" ng-model="order">
+                                <label for="organize-title">Title</label>
                             </li>
                             <li>
-                                <input type="radio" id="organize-category" name="organize-options" value="VALUE">
+                                <input type="radio" id="organize-author" name="organize-options" value="author" ng-model="order">
+                                <label for="organize-author">Author</label>
+                            </li>
+                            <li>
+                                <input type="radio" id="organize-category" name="organize-options" value="category" ng-model="order">
                                 <label for="organize-category">Category</label>
                             </li>
                             <li>
-                                <input type="radio" id="organize-isbn" name="organize-options" value="VALUE">
+                                <input type="radio" id="organize-isbn" name="organize-options" value="isbn" ng-model="order">
                                 <label for="organize-isbn">ISBN</label>
                             </li> 
                         </ul>
@@ -135,11 +162,11 @@
                         <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" data-placeholder="false">Order <span class="caret"></span></button>
                         <ul id="order-list" class="dropdown-menu" role="menu" >
                             <li>
-                                <input type="radio" id="organize-order-asc" name="organize-order" value="VALUE" checked="checked">
+                                <input type="radio" id="organize-order-asc" name="organize-order" value="false" ng-model="order_reverse" checked="checked">
                                 <label for="organize-order-asc">Ascending</label>
                             </li>
                             <li>
-                                <input type="radio" id="organize-order-desc" name="organize-order" value="VALUE">
+                                <input type="radio" id="organize-order-desc" name="organize-order" value="true" ng-model="order_reverse">
                                 <label for="organize-order-desc">Descending</label>
                             </li>
                        </ul>
@@ -148,13 +175,13 @@
             
 
             <div id="book-list" >
-                <div ng-repeat="book in books | filter:search">
+                <div ng-repeat="book in filtered_books = (books | filter:{'title':search.title, 'category':category} | orderBy:order:order_reverse)">
                     <button ng-click="editBook(book)">
                         <img ng-src="{{book.image}}" />
                         <h3>{{book.author}} - {{book.title}}</h3>
                     </button>
                 </div>
-                <h1 ng-show="no_books_found" id="book-list-empty-message">No books were found</h1>
+                <h1 ng-show="filtered_books.length == 0" id="book-list-empty-message">No books were found</h1>
             </div>
         </section>
         <section id="footer">

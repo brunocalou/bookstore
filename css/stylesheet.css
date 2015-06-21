@@ -102,12 +102,13 @@ body > section {
     padding: 0;
 }
 
-#categories li:hover {
+#categories label:hover,
+#categories label.active{
     background-color: #d9534f;
     color: white;
 }
 
-#categories li {
+#categories label {
     padding-left: 1.2em;
     padding-top: 0.3em;
     padding-bottom: 0.3em;

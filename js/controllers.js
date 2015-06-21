@@ -7,7 +7,7 @@ booksApp.controller('BooksCtrl', function ($scope) {
             'title': 'O guia do mochileiro das galáxias',
             'author': 'Douglas Adams',
             'image': 'img/guia_mochileiro_1.jpg',
-            'isbn': "123",
+            'isbn': "000",
             'category': 'Fiction'
         },
         {
@@ -15,7 +15,7 @@ booksApp.controller('BooksCtrl', function ($scope) {
             'title': 'Praticamente inofensiva',
             'author': 'Douglas Adams',
             'image': 'img/guia_mochileiro_2.jpg',
-            'isbn': "123",
+            'isbn': "001",
             'category': 'Fiction'
         },
         {
@@ -23,7 +23,7 @@ booksApp.controller('BooksCtrl', function ($scope) {
             'title': 'O restaurante no fim do universo',
             'author': 'Douglas Adams',
             'image': 'img/guia_mochileiro_3.jpg',
-            'isbn': "123",
+            'isbn': "002",
             'category': 'Fiction'
         },
         {
@@ -31,7 +31,7 @@ booksApp.controller('BooksCtrl', function ($scope) {
             'title': 'A vida, o universo, e tudo mais',
             'author': 'Douglas Adams',
             'image': 'img/guia_mochileiro_4.jpg',
-            'isbn': "123",
+            'isbn': "003",
             'category': 'Fiction'
         },
         {
@@ -39,7 +39,7 @@ booksApp.controller('BooksCtrl', function ($scope) {
             'title': 'Até mais, e obrigado pelos peixes',
             'author': 'Douglas Adams',
             'image': 'img/guia_mochileiro_5.jpg',
-            'isbn': "123",
+            'isbn': "004",
             'category': 'Fiction'
         },
         {
@@ -47,7 +47,7 @@ booksApp.controller('BooksCtrl', function ($scope) {
             'title': 'Livro de teste',
             'author': 'Bruno Calou',
             'image': 'img/guia_mochileiro_5.jpg',
-            'isbn': "123",
+            'isbn': "005",
             'category': 'Fiction'
         }
     ];
@@ -65,9 +65,31 @@ booksApp.controller('BooksCtrl', function ($scope) {
     $scope.test_id = -1;
     $scope.no_books_found = false;
     $scope.show_danger_zone = true;
+    $scope.order = 'id';
+    $scope.order_reverse = 'false';
+    $scope.category = '';
 
-    $scope.updateCategories = function() {
-        console.log("updating categories");
+    $scope.updateCategories = function(category) {
+        $scope.category = category;
+        
+        //Reset the categories
+        for(var category in $scope.categories) {
+            $scope.categories[category] = 0;
+        }
+        
+        $scope.categories.all = $scope.books.length;
+        
+        for(var i = 0; i < $scope.books.length; i++) {
+            if($scope.books[i].category == undefined) {
+                continue;
+            }
+            for(var category in $scope.categories) {
+                if(($scope.books[i].category).toLowerCase() == category) {
+                    $scope.categories[category] += 1;
+                    continue;
+                }
+            }        
+        }
     };
     
     $scope.editBook = function(book) {
@@ -88,7 +110,7 @@ booksApp.controller('BooksCtrl', function ($scope) {
             $('#modal-save').attr("disabled", "");
             
         }
-        
+        $scope.updateCategories($scope.category);
         $('#book-info-modal').modal('show');
     };
     
@@ -144,6 +166,7 @@ booksApp.controller('BooksCtrl', function ($scope) {
             }
         }
         checkNumberOfBooks();
+        $scope.updateCategories($scope.category);
         $('#book-info-modal').modal('hide');
     };
     
@@ -173,8 +196,15 @@ booksApp.controller('BooksCtrl', function ($scope) {
         }
         
         checkNumberOfBooks();
+        $scope.updateCategories($scope.category);
         $('#book-info-modal').modal('hide');
     };
+    
+//    $scope.order = function(predicate) {
+////        $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
+//        console.log(preditate);
+//        $scope.predicate = predicate;
+//    };
     
     var checkNumberOfBooks = function() {
         console.log($scope.books.length);
