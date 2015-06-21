@@ -99,35 +99,35 @@ var populateDB = function() {
     {
         'title': 'O guia do mochileiro das galáxias',
         'author': 'Douglas Adams',
-        'image': 'guia_mochileiro_1.jpg',
+        'image': 'img/guia_mochileiro_1.jpg',
         'isbn': "000",
         'category': 'Fiction'
     },
     {
         'title': 'Praticamente inofensiva',
         'author': 'Douglas Adams',
-        'image': 'guia_mochileiro_2.jpg',
+        'image': 'img/guia_mochileiro_2.jpg',
         'isbn': "001",
         'category': 'Fiction'
     },
     {
         'title': 'O restaurante no fim do universo',
         'author': 'Douglas Adams',
-        'image': 'guia_mochileiro_3.jpg',
+        'image': 'img/guia_mochileiro_3.jpg',
         'isbn': "002",
         'category': 'Fiction'
     },
     {
         'title': 'A vida, o universo, e tudo mais',
         'author': 'Douglas Adams',
-        'image': 'guia_mochileiro_4.jpg',
+        'image': 'img/guia_mochileiro_4.jpg',
         'isbn': "003",
         'category': 'Fiction'
     },
     {
         'title': 'Até mais, e obrigado pelos peixes',
         'author': 'Douglas Adams',
-        'image': 'guia_mochileiro_5.jpg',
+        'image': 'img/guia_mochileiro_5.jpg',
         'isbn': "004",
         'category': 'Fiction'
     }];

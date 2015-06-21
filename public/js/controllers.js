@@ -1,55 +1,55 @@
 var booksApp = angular.module('app', ['ngResource']);
 
-booksApp.controller('BooksCtrl', function ($scope) {
+booksApp.controller('BooksCtrl', function ($scope, $http, Book) {
     $scope.books = [
-        {
-            'id': '0',
-            'title': 'O guia do mochileiro das galáxias',
-            'author': 'Douglas Adams',
-            'image': 'img/guia_mochileiro_1.jpg',
-            'isbn': "000",
-            'category': 'Fiction'
-        },
-        {
-            'id': '1',
-            'title': 'Praticamente inofensiva',
-            'author': 'Douglas Adams',
-            'image': 'img/guia_mochileiro_2.jpg',
-            'isbn': "001",
-            'category': 'Fiction'
-        },
-        {
-            'id': '2',
-            'title': 'O restaurante no fim do universo',
-            'author': 'Douglas Adams',
-            'image': 'img/guia_mochileiro_3.jpg',
-            'isbn': "002",
-            'category': 'Fiction'
-        },
-        {
-            'id': '3',
-            'title': 'A vida, o universo, e tudo mais',
-            'author': 'Douglas Adams',
-            'image': 'img/guia_mochileiro_4.jpg',
-            'isbn': "003",
-            'category': 'Fiction'
-        },
-        {
-            'id': '4',
-            'title': 'Até mais, e obrigado pelos peixes',
-            'author': 'Douglas Adams',
-            'image': 'img/guia_mochileiro_5.jpg',
-            'isbn': "004",
-            'category': 'Fiction'
-        },
-        {
-            'id': '5',
-            'title': 'Livro de teste',
-            'author': 'Bruno Calou',
-            'image': 'img/guia_mochileiro_5.jpg',
-            'isbn': "005",
-            'category': 'Fiction'
-        }
+        // {
+        //     'id': '0',
+        //     'title': 'O guia do mochileiro das galáxias',
+        //     'author': 'Douglas Adams',
+        //     'image': 'img/guia_mochileiro_1.jpg',
+        //     'isbn': "000",
+        //     'category': 'Fiction'
+        // },
+        // {
+        //     'id': '1',
+        //     'title': 'Praticamente inofensiva',
+        //     'author': 'Douglas Adams',
+        //     'image': 'img/guia_mochileiro_2.jpg',
+        //     'isbn': "001",
+        //     'category': 'Fiction'
+        // },
+        // {
+        //     'id': '2',
+        //     'title': 'O restaurante no fim do universo',
+        //     'author': 'Douglas Adams',
+        //     'image': 'img/guia_mochileiro_3.jpg',
+        //     'isbn': "002",
+        //     'category': 'Fiction'
+        // },
+        // {
+        //     'id': '3',
+        //     'title': 'A vida, o universo, e tudo mais',
+        //     'author': 'Douglas Adams',
+        //     'image': 'img/guia_mochileiro_4.jpg',
+        //     'isbn': "003",
+        //     'category': 'Fiction'
+        // },
+        // {
+        //     'id': '4',
+        //     'title': 'Até mais, e obrigado pelos peixes',
+        //     'author': 'Douglas Adams',
+        //     'image': 'img/guia_mochileiro_5.jpg',
+        //     'isbn': "004",
+        //     'category': 'Fiction'
+        // },
+        // {
+        //     'id': '5',
+        //     'title': 'Livro de teste',
+        //     'author': 'Bruno Calou',
+        //     'image': 'img/guia_mochileiro_5.jpg',
+        //     'isbn': "005",
+        //     'category': 'Fiction'
+        // }
     ];
     
     $scope.categories = {
@@ -65,7 +65,7 @@ booksApp.controller('BooksCtrl', function ($scope) {
     $scope.test_id = -1;
     $scope.no_books_found = false;
     $scope.show_danger_zone = true;
-    $scope.order = 'id';
+    $scope.order = '_id';
     $scope.order_reverse = 'false';
     $scope.category = '';
 
@@ -143,29 +143,35 @@ booksApp.controller('BooksCtrl', function ($scope) {
     };
     
     $scope.save = function() {
-        console.log("$scope.current_book.id " + $scope.current_book.id);
-        if($scope.current_book.id == undefined) {
+        console.log("$scope.current_book._id " + $scope.current_book._id);
+        if($scope.current_book._id == undefined) {
             //Send the new book to the server and retrieve the new id
+            Book.save($scope.current_book);
+
             console.log("undefined");
             var new_book = JSON.parse(JSON.stringify($scope.current_book));
-            new_book.id = $scope.test_id;
+            new_book._id = $scope.test_id;
             $scope.test_id -= 1;
             
             $scope.books.push(new_book);
             
         } else {
             //Send the book info to the server
-            
+            // var book_to_send = $resource('/books/', $scope.current_book);
+            // var received_book = book_to_send.get({'_id':current_book._id}, function() {
+            //     // user.abc = true;
+            //     received_book.$save();
+            // });
             //Change the book info locally
             for(var i = 0; i < $scope.books.length; i++) {
                 var book = $scope.books[i];
-                if(book.id == $scope.current_book.id) {
+                if(book._id == $scope.current_book._id) {
                     $scope.books[i] = JSON.parse(JSON.stringify($scope.current_book));
                     break;
                 }
             }
         }
-        checkNumberOfBooks();
+        $scope.checkNumberOfBooks();
         $scope.updateCategories($scope.category);
         $('#book-info-modal').modal('hide');
     };
@@ -184,18 +190,27 @@ booksApp.controller('BooksCtrl', function ($scope) {
     
     $scope.delete = function() {
         //Send delete message to the server
-        
+        console.log("deleting " + $scope.current_book._id);
+        var config = {
+            method: "DELETE",
+            url: "/books/" + $scope.current_book._id,
+            headers: {"Content-Type": "application/json;charset=utf-8"}
+        };
+        // $http({url: 'whatever/api/'+obj.id, method: 'DELETE'})
+
+        $http(config);
+        // Book.remove('/books/:id', $scope.current_book._id);
         //Delete book locally
         for(var i = 0; i < $scope.books.length; i++) {
             var book = $scope.books[i];
-            if(book.id == $scope.current_book.id) {
+            if(book._id == $scope.current_book._id) {
                 $scope.books.splice(i, 1);
 //                $scope.books[i] = JSON.parse(JSON.stringify($scope.current_book));
                 break;
             }
         }
         
-        checkNumberOfBooks();
+        $scope.checkNumberOfBooks();
         $scope.updateCategories($scope.category);
         $('#book-info-modal').modal('hide');
     };
@@ -206,7 +221,7 @@ booksApp.controller('BooksCtrl', function ($scope) {
 //        $scope.predicate = predicate;
 //    };
     
-    var checkNumberOfBooks = function() {
+    $scope.checkNumberOfBooks = function() {
         console.log($scope.books.length);
         if($scope.books.length) {
             $scope.no_books_found = false;
@@ -214,19 +229,28 @@ booksApp.controller('BooksCtrl', function ($scope) {
             $scope.no_books_found = true;
         }
     }
+
+    Book.query(function(data) {
+        console.log(data);
+        $scope.books = data;
+        $scope.checkNumberOfBooks();
+        $scope.updateCategories($scope.category);
+  });
 });
 
-// booksApp.factory("Post", function($resource) {
-//   return $resource("/wines/:id");
-// });
+booksApp.factory("Book", function($resource) {
+  return $resource("/books/:id");
+});
 
 // booksApp.controller("BooksCtrl", function($scope, Post) {
 //   Post.query(function(data) {
 //       console.log(data);
-//     $scope.posts = data;
+//     $scope.books = data;
+//     $scope.checkNumberOfBooks();
+//     $scope.updateCategories($scope.category);
 //   });
-//   Post.get({ id: 1 }, function(data) {
-//       console.log(data);
-//     $scope.post = data;
-//   });
+//   // Post.get({ id: 1 }, function(data) {
+//   //     console.log(data);
+//   //   $scope.books = data;
+//   // });
 // });
