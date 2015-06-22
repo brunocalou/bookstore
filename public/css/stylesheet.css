@@ -169,11 +169,22 @@ body > section {
     max-width: 75%;
 }
 
-#book-list h3 {
-    padding-top: 0.2em;
-    height: 15%;
-    font-size: 1.3em;
+#book-list h3,
+#book-list p {
+    margin: 0.5em;
     overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#book-list h3 {
+    font-size: 1.25em;
+    margin-top: 1em;
+}
+
+#book-list p {
+    margin-top: 0.5em;
+    font-size: 1.35em;
 }
 
 #book-list-empty-message {

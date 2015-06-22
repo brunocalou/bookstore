@@ -1,0 +1,315 @@
+[{
+      'title': 'O Livro de Ouro do Hagar O Horrível',
+      'author': 'Dik Browne',
+      'image': 'img/books/O Livro de Ouro.jpg',
+      'isbn': "9788577487103",
+      'category': 'Humor'
+},
+{
+      'title': 'Piadas Nerds - As melhores piadas para o pai nerds',
+      'author': 'Ivan Baroni',
+      'image': 'img/books/Piadas Nerds.jpg',
+      'isbn': "9788576862215",
+      'category': 'Humor'
+},
+{
+      'title': 'História do Mundo sem as Partes Chatas',
+      'author': 'Dave Rear',
+      'image': 'img/books/Historia.jpg',
+      'isbn': "9788531612619",
+      'category': 'Humor'
+},
+{
+      'title': 'Como não ser um babaca',
+      'author': 'Meghan Doherty',
+      'image': 'img/books/Babaca.jpg',
+      'isbn': "9788580577334",
+      'category': 'Humor'
+},
+{
+      'title': 'Telefonemas do Nilton',
+      'author': 'Nilton',
+      'image': 'img/books/Telefonema.jpg',
+      'isbn': "9789722056519",
+      'category': 'Humor'
+},
+{
+      'title': 'O Livro dos Provérbios 1',
+      'author': 'António Mota',
+      'image': 'img/books/O Livro dos Provérbios.jpg',
+      'isbn': "9789892330525",
+      'category': 'Humor'
+},
+{
+      'title': 'Preto No Branco',
+      'author': 'Sérgio Silva',
+      'image': 'img/books/Preto no Branco.jpg',
+      'isbn': "910191010191",
+      'category': 'Humor'
+},
+{
+      'title': 'Americanizado',
+      'author': 'Sérgio Silva',
+      'image': 'img/books/Americanizado.jpg',
+      'isbn': "910191010019",
+      'category': 'Humor'
+},
+{
+      'title': 'Playbook: o manual da conquista',
+      'author': 'Berney Stinson',
+      'image': 'img/books/Playbook.jpg',
+      'isbn': "9788580576634",
+      'category': 'Humor'
+},
+{
+      'title': 'Ria da Minha Vida: Volume 1',
+      'author': 'Evandro A. Daolio',
+      'image': 'img/books/Ria da Minha Vida.jpg',
+      'isbn': "9788576794288",
+      'category': 'Humor'
+},
+{
+      'title': 'O exorcista',
+      'author': 'William Peter Blatty',
+      'image': 'img/books/O Exorcista.jpg',
+      'isbn': "9788522015443",
+      'category': 'Terror'
+},
+{
+      'title': 'O Horror em Red Hook: e Outras Histórias',
+      'author': 'H.P. Lovecraft',
+      'image': 'img/books/O Horror em Red Hook.jpg',
+      'isbn': "9788525426734",
+      'category': 'Terror'
+},
+{
+      'title': 'A ascensão do Governador',
+      'author': 'Robert Kirkman',
+      'image': 'img/books/A ascensão do Governador.jpg',
+      'isbn': "9788501099549",
+      'category': 'Terror'
+},
+{
+      'title': 'The Walking Dead: Caminho para Woodbury',
+      'author': 'Robert Kirkman',
+      'image': 'img/books/The Walking Dead - Caminho para Woodbury.jpg',
+      'isbn': "9788501402783",
+      'category': 'Terror'
+},
+{
+      'title': 'O médico e o monstro - Mestres do terror',
+      'author': 'Robert Louis Stevenson',
+      'image': 'img/books/O médico e o monstro - Mestres do terror.jpg',
+      'isbn': "9788520921357",
+      'category': 'Terror'
+},
+{
+      'title': 'Drácula',
+      'author': 'Bram Stoker',
+      'image': 'img/books/Drácula.jpg',
+      'isbn': "9788525421708",
+      'category': 'Terror'
+},
+{
+      'title': 'Doutor Sono',
+      'author': 'Stephen King',
+      'image': 'img/books/Doutor Sono.jpg',
+      'isbn': "9788581052502",
+      'category': 'Terror'
+},
+{
+      'title': 'O Iluminado',
+      'author': 'Stephen King',
+      'image': 'img/books/O Iluminado.jpg',
+      'isbn': "9788581051017",
+      'category': 'Terror'
+},
+{
+      'title': 'O Pistoleiro',
+      'author': 'Stephen King',
+      'image': 'img/books/O Pistoleiro.jpg',
+      'isbn': "9788581050904",
+      'category': 'Terror'
+},
+{
+      'title': 'Saco de Ossos',
+      'author': 'Stephen King',
+      'image': 'img/books/Saco de Ossos.jpg',
+      'isbn': "9788581051093",
+      'category': 'Terror'
+},
+{
+      'title': 'A Mariposa no Espelho',
+      'author': 'A. G. Howard',
+      'image': 'img/books/A Mariposa no Espelho.jpg',
+      'isbn': "9788581051092",
+      'category': 'Fantasy'
+},
+{
+      'title': 'A Ascensão dos Dragões',
+      'author': 'Morgan Rice  ',
+      'image': 'img/books/A Ascensão dos Dragões.jpg',
+      'isbn': "9781632912671",
+      'category': 'Fantasy'
+},
+{
+      'title': 'Uma Marcha De Reis',
+      'author': 'Morgan Rice  ',
+      'image': 'img/books/Uma Marcha De Reis.jpg',
+      'isbn': "9781632910745",
+      'category': 'Fantasy'
+},
+{
+      'title': 'Um Destino De Dragões',
+      'author': 'Morgan Rice  ',
+      'image': 'img/books/Um Destino De Dragões.jpg',
+      'isbn': "9781632910868",
+      'category': 'Fantasy'
+},
+{
+      'title': 'Um Grito De Honra',
+      'author': 'Morgan Rice  ',
+      'image': 'img/books/Um Grito De Honra.jpg',
+      'isbn': "9781632910868",
+      'category': 'Fantasy'
+},
+{
+      'title': 'Um Grito De Honra',
+      'author': 'Morgan Rice  ',
+      'image': 'img/books/Um Grito De Honra.jpg',
+      'isbn': "9781632911070",
+      'category': 'Fantasy'
+},
+{
+      'title': 'Um Voto De Glória',
+      'author': 'Morgan Rice  ',
+      'image': 'img/books/Um Voto De Glória.jpg',
+      'isbn': "9781632911414",
+      'category': 'Fantasy'
+},
+{
+      'title': 'Uma Carga De Valor',
+      'author': 'Morgan Rice  ',
+      'image': 'img/books/Uma Carga De Valor.jpg',
+      'isbn': "9781632911599",
+      'category': 'Fantasy'
+},
+{
+      'title': 'A Guerra dos Tronos - As Crônicas de Gelo e Fogo',
+      'author': 'George R. R. Martin',
+      'image': 'img/books/As Crônicas de Gelo e Fogo.jpg',
+      'isbn': "9788580442786",
+      'category': 'Fantasy'
+},
+{
+      'title': 'A Dança dos Dragões - As Crônicas de Gelo e Fogo',
+      'author': 'George R. R. Martin',
+      'image': 'img/books/A Dança dos Dragões.jpg',
+      'isbn': "9788580445763",
+      'category': 'Fantasy'
+},
+{
+      'title': 'Retrato de uma Doadora',
+      'author': 'Lissa Price',
+      'image': 'img/books/Retrato de uma Doadora.jpg',
+      'isbn': "9788580445710",
+      'category': 'Fiction'
+},
+{
+      'title': 'Retrato de uma Starter',
+      'author': 'Lissa Price',
+      'image': 'img/books/Retrato de uma Starter.jpg',
+      'isbn': "9788580445711",
+      'category': 'Fiction'
+},
+{
+      'title': 'Retrato de um Esporo',
+      'author': 'Lissa Price',
+      'image': 'img/books/Retrato de um Esporo.jpg',
+      'isbn': "9788580445712",
+      'category': 'Fiction'
+},
+{
+      'title': 'Retrato de um Inspetor',
+      'author': 'Lissa Price',
+      'image': 'img/books/Retrato de um Inspetor.jpg',
+      'isbn': "9788580445713",
+      'category': 'Fiction'
+},
+{
+      'title': 'Depois da Terra: Histórias de Fantasmas - A presa',
+      'author': 'Lissa Price',
+      'image': 'img/books/A presa.jpg',
+      'isbn': "9788581051260",
+      'category': 'Fiction'
+},
+{
+      'title': 'Depois da Terra: Histórias de Fantasmas - A presa',
+      'author': 'Peter David',
+      'image': 'img/books/A presa.jpg',
+      'isbn': "9788581051260",
+      'category': 'Fiction'
+},
+{
+      'title': 'Depois da Terra: Histórias de Fantasmas - Paz',
+      'author': 'Peter David',
+      'image': 'img/books/Paz.jpg',
+      'isbn': "9788581051338",
+      'category': 'Fiction'
+},
+{
+      'title': 'Depois da Terra: Histórias de Fantasmas - Reparação',
+      'author': 'Peter David',
+      'image': 'img/books/Reparação.jpg',
+      'isbn': "9788581051437",
+      'category': 'Fiction'
+},
+{
+      'title': 'Depois da Terra',
+      'author': 'Peter David',
+      'image': 'img/books/Depois da Terra.jpg',
+      'isbn': "9788581051642",
+      'category': 'Fiction'
+},
+{
+      'title': 'Depois da Terra: Histórias de Fantasmas - O direito de nascer',
+      'author': 'Peter David',
+      'image': 'img/books/O direito de nascer.jpg',
+      'isbn': "9788581051321",
+      'category': 'Fiction'
+},
+{
+      'title': 'O guia do mochileiro das galáxias',
+      'author': 'Douglas Adams',
+      'image': 'img/books/guia_mochileiro_1.jpg',
+      'isbn': "9788599296943",
+      'category': 'Fiction'
+},
+{
+      'title': 'Praticamente inofensiva',
+      'author': 'Douglas Adams',
+      'image': 'img/books/guia_mochileiro_2.jpg',
+      'isbn': "9788599296981",
+      'category': 'Fiction'
+},
+{
+      'title': 'O restaurante no fim do universo',
+      'author': 'Douglas Adams',
+      'image': 'img/books/guia_mochileiro_3.jpg',
+      'isbn': "9788599296950",
+      'category': 'Fiction'
+},
+{
+      'title': 'A vida, o universo, e tudo mais',
+      'author': 'Douglas Adams',
+      'image': 'img/books/guia_mochileiro_4.jpg',
+      'isbn': "9788599296967",
+      'category': 'Fiction'
+},
+{
+      'title': 'Até mais, e obrigado pelos peixes',
+      'author': 'Douglas Adams',
+      'image': 'img/books/guia_mochileiro_5.jpg',
+      'isbn': "9788599296974",
+      'category': 'Fiction'
+}]

@@ -184,7 +184,8 @@
                 <div ng-repeat="book in filtered_books = (books | filter:{'title':search.title, 'category':category} | orderBy:order:order_reverse)">
                     <button ng-click="editBook(book)">
                         <img ng-src="{{book.image}}" />
-                        <h3>{{book.author}} - {{book.title}}</h3>
+                        <h3>{{book.author}}</h3>
+                        <p>{{book.title}}</p>
                     </button>
                 </div>
                 <h1 ng-show="filtered_books.length == 0" id="book-list-empty-message">No books were found</h1>
@@ -196,7 +197,7 @@
                 <p>Copyright ©</p>
             </div>
             <div id="footer-logos">
-                <a href="https://github.com/brunocalou">
+                <a href="https://github.com/brunocalou/bookstore">
                     <img src="img/GitHub-Mark-32px.png" />
                 </a>
             </div>

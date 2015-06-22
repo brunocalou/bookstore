@@ -1,0 +1,15 @@
+In order to import the files, follow the tutorial:
+
+1 - Go to your mongodb bin location
+2 - mongoimport --db bookdb --collection books --file <your Books.json location> --jsonArray
+3 - Check it with
+	mongo
+	use bookdb
+	db.books.find().pretty()
+
+Example:
+1 - cd ~/mongodb/bin
+2 - mongoimport --db bookdb --collection books --file /home/bruno/Dropbox/UFRJ/Sistemas\ Distribuídos/Trabalho/Project/data/Books.json --jsonArray
+3 - mongo
+	use bookdb
+	db.books.find().pretty()
