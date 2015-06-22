@@ -7,6 +7,16 @@ html, body {
 body > section {
 }
 
+@font-face {
+    font-family: bellaboo;
+    src: url(/fonts/BELLABOO-Regular.ttf);
+}
+
+@font-face {
+    font-family: manifesto;
+    src: url(/fonts/MANIFESTO.ttf);
+}
+
 #top {
     width: 100%;
     height: 35em;
@@ -70,8 +80,9 @@ body > section {
 }
 
 #title h1 {
-    font-size: 6em;
+    font-size: 7em;
     display: inline;
+    font-family: manifesto;
 }
 
 

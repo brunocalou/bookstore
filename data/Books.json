@@ -1,10 +1,4 @@
-[{
-      'title': 'O Livro de Ouro do Hagar O Horrível',
-      'author': 'Dik Browne',
-      'image': 'img/books/O Livro de Ouro.jpg',
-      'isbn': "9788577487103",
-      'category': 'Humor'
-},
+[
 {
       'title': 'Piadas Nerds - As melhores piadas para o pai nerds',
       'author': 'Ivan Baroni',
@@ -55,7 +49,7 @@
       'category': 'Humor'
 },
 {
-      'title': 'Playbook: o manual da conquista',
+      'title': 'Playbook: O Manual da Conquista',
       'author': 'Berney Stinson',
       'image': 'img/books/Playbook.jpg',
       'isbn': "9788580576634",
@@ -69,74 +63,74 @@
       'category': 'Humor'
 },
 {
-      'title': 'O exorcista',
+      'title': 'O Exorcista',
       'author': 'William Peter Blatty',
       'image': 'img/books/O Exorcista.jpg',
       'isbn': "9788522015443",
-      'category': 'Terror'
+      'category': 'Horror'
 },
 {
       'title': 'O Horror em Red Hook: e Outras Histórias',
       'author': 'H.P. Lovecraft',
       'image': 'img/books/O Horror em Red Hook.jpg',
       'isbn': "9788525426734",
-      'category': 'Terror'
+      'category': 'Horror'
 },
 {
-      'title': 'A ascensão do Governador',
+      'title': 'A Ascensão do Governador',
       'author': 'Robert Kirkman',
       'image': 'img/books/A ascensão do Governador.jpg',
       'isbn': "9788501099549",
-      'category': 'Terror'
+      'category': 'Horror'
 },
 {
       'title': 'The Walking Dead: Caminho para Woodbury',
       'author': 'Robert Kirkman',
       'image': 'img/books/The Walking Dead - Caminho para Woodbury.jpg',
       'isbn': "9788501402783",
-      'category': 'Terror'
+      'category': 'Horror'
 },
 {
-      'title': 'O médico e o monstro - Mestres do terror',
+      'title': 'O Médico e o Monstro - Mestres do terror',
       'author': 'Robert Louis Stevenson',
       'image': 'img/books/O médico e o monstro - Mestres do terror.jpg',
       'isbn': "9788520921357",
-      'category': 'Terror'
+      'category': 'Horror'
 },
 {
       'title': 'Drácula',
       'author': 'Bram Stoker',
       'image': 'img/books/Drácula.jpg',
       'isbn': "9788525421708",
-      'category': 'Terror'
+      'category': 'Horror'
 },
 {
       'title': 'Doutor Sono',
       'author': 'Stephen King',
       'image': 'img/books/Doutor Sono.jpg',
       'isbn': "9788581052502",
-      'category': 'Terror'
+      'category': 'Horror'
 },
 {
       'title': 'O Iluminado',
       'author': 'Stephen King',
       'image': 'img/books/O Iluminado.jpg',
       'isbn': "9788581051017",
-      'category': 'Terror'
+      'category': 'Horror'
 },
 {
       'title': 'O Pistoleiro',
       'author': 'Stephen King',
       'image': 'img/books/O Pistoleiro.jpg',
       'isbn': "9788581050904",
-      'category': 'Terror'
+      'category': 'Horror'
 },
 {
       'title': 'Saco de Ossos',
       'author': 'Stephen King',
       'image': 'img/books/Saco de Ossos.jpg',
       'isbn': "9788581051093",
-      'category': 'Terror'
+      'category': 'Horror'
 },
 {
       'title': 'A Mariposa no Espelho',
@@ -170,13 +164,6 @@
       'title': 'Um Grito De Honra',
       'author': 'Morgan Rice  ',
       'image': 'img/books/Um Grito De Honra.jpg',
-      'isbn': "9781632910868",
-      'category': 'Fantasy'
-},
-{
-      'title': 'Um Grito De Honra',
-      'author': 'Morgan Rice  ',
-      'image': 'img/books/Um Grito De Honra.jpg',
       'isbn': "9781632911070",
       'category': 'Fantasy'
 },
@@ -199,6 +186,27 @@
       'author': 'George R. R. Martin',
       'image': 'img/books/As Crônicas de Gelo e Fogo.jpg',
       'isbn': "9788580442786",
+      'category': 'Fantasy'
+},
+{
+      'title': 'A Tormenta de Espadas - As Crônicas de Gelo e Fogo',
+      'author': 'George R. R. Martin',
+      'image': 'img/books/A_Tormenta_De_Espadas.jpg',
+      'isbn': "9788580442786",
+      'category': 'Fantasy'
+},
+{
+      'title': 'A Fúria dos Reis - As Crônicas de Gelo e Fogo',
+      'author': 'George R. R. Martin',
+      'image': 'img/books/A_Furia_Dos_Reis.png',
+      'isbn': "9788580442625",
+      'category': 'Fantasy'
+},
+{
+      'title': 'O Festim dos Corvos - As Crônicas de Gelo e Fogo',
+      'author': 'George R. R. Martin',
+      'image': 'img/books/O_Festim_dos_Corvos.jpg',
+      'isbn': "9788580443769",
       'category': 'Fantasy'
 },
 {
@@ -238,13 +246,6 @@
 },
 {
       'title': 'Depois da Terra: Histórias de Fantasmas - A presa',
-      'author': 'Lissa Price',
-      'image': 'img/books/A presa.jpg',
-      'isbn': "9788581051260",
-      'category': 'Fiction'
-},
-{
-      'title': 'Depois da Terra: Histórias de Fantasmas - A presa',
       'author': 'Peter David',
       'image': 'img/books/A presa.jpg',
       'isbn': "9788581051260",
@@ -277,6 +278,13 @@
       'image': 'img/books/O direito de nascer.jpg',
       'isbn': "9788581051321",
       'category': 'Fiction'
+},
+{
+      'title': 'O Livro de Ouro do Hagar O Horrível',
+      'author': 'Dik Browne',
+      'image': 'img/books/O Livro de Ouro.jpg',
+      'isbn': "9788577487103",
+      'category': 'Humor'
 },
 {
       'title': 'O guia do mochileiro das galáxias',

@@ -11,8 +11,8 @@
         <script src="/js/dropdowns-enhancement.js"></script>
         <script src="/js/behavior.js"></script>
         
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.min.js"></script>
+        <script src="/js/angular.min.js"></script>
+        <script src="/js/angular-route.min.js"></script>
         <script src="/js/angular-resource.min.js"></script>
         
         <script src="js/controllers.js"></script>
@@ -103,16 +103,6 @@
             <button class="btn btn-md btn-danger" type="button" ng-click="editBook()">
                             <span class="glyphicon glyphicon-plus"></span> Add a book
             </button>
-<!--
-            <ul id="categories">
-                <li class="categories-header">Categories</li>
-                <li ng-model="categories.all">All ({{categories.all}})</li>
-                <li ng-model="categories.fiction">Fiction ({{categories.fiction}})</li>
-                <li ng-model="categories.fantasy">Fantasy ({{categories.fantasy}})</li>
-                <li ng-model="categories.terror">Terror ({{categories.terror}})</li>
-                <li ng-model="categories.humor">Humor ({{categories.humor}})</li>
-            </ul>
--->
             
             <div id="categories" class="btn-group" data-toggle="buttons">
                 <label class="categories-header btn">
@@ -121,17 +111,8 @@
                 <label class="btn active" ng-click="updateCategories('')">
                     <input type="radio" name="categories">All ({{categories.all}})
                 </label>
-                <label class="btn" ng-click="updateCategories('fiction')">
-                    <input type="radio" name="categories">Fiction ({{categories.fiction}})
-                </label>
-                <label class="btn" ng-click="updateCategories('fantasy')">
-                    <input type="radio" name="categories">Fantasy ({{categories.fantasy}})
-                </label>
-                <label class="btn" ng-click="updateCategories('terror')">
-                    <input type="radio" name="categories">Terror ({{categories.terror}})
-                </label>
-                <label class="btn" ng-click="updateCategories('humor')">
-                    <input type="radio" name="categories">Humor ({{categories.humor}})
+                <label ng-repeat="(name, quantity) in categories" ng-if="name!='all'" class="btn" ng-click="updateCategories(name)">
+                    <input type="radio" name="categories">{{name | capitalize}} ({{quantity}})
                 </label>
             </div>
             
@@ -168,11 +149,11 @@
                         <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" data-placeholder="false">Order <span class="caret"></span></button>
                         <ul id="order-list" class="dropdown-menu" role="menu" >
                             <li>
-                                <input type="radio" id="organize-order-asc" name="organize-order" value="false" ng-model="order_reverse" checked="checked">
+                                <input type="radio" id="organize-order-asc" name="organize-order" ng-click="order_reverse = false" checked="checked">
                                 <label for="organize-order-asc">Ascending</label>
                             </li>
                             <li>
-                                <input type="radio" id="organize-order-desc" name="organize-order" value="true" ng-model="order_reverse">
+                                <input type="radio" id="organize-order-desc" name="organize-order" ng-click="order_reverse = true">
                                 <label for="organize-order-desc">Descending</label>
                             </li>
                        </ul>
@@ -181,7 +162,8 @@
             
 
             <div id="book-list" >
-                <div ng-repeat="book in filtered_books = (books | filter:{'title':search.title, 'category':category} | orderBy:order:order_reverse)">
+                <div ng-repeat="book in filtered_books = (books | findbooks:search.title:category | orderBy:order:order_reverse)">
+                <!-- <div ng-repeat="book in filtered_books = (books | filter:{'title':search.title, 'category':category} | orderBy:order:order_reverse)"> -->
                     <button ng-click="editBook(book)">
                         <img ng-src="{{book.image}}" />
                         <h3>{{book.author}}</h3>
