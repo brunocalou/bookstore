@@ -31,6 +31,11 @@
                         <h4 class="modal-title" id="exampleModalLabel">Book Viewer</h4>
                         
                     </div>
+                    <div ng-show="show_error_msg" class="alert alert-danger" role="alert">
+                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        <span class="sr-only">Error:</span>
+                        {{error_msg}}
+                    </div>
                     <div class="modal-body">
                         <form id="book-form">
                                 <div class="form-group">

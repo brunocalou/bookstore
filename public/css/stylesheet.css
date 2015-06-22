@@ -165,7 +165,8 @@ body > section {
 
 #book-list img {
     height: 80%;
-/*    width: 80%;*/
+    object-fit: contain;
+    max-width: 75%;
 }
 
 #book-list h3 {

@@ -26,8 +26,10 @@ exports.findById = function(req, res) {
     db.collection('books', function(err, collection) {
         collection.findOne(id, function(err, item) {
             if(err) {
-                res.send({'error': 'An error has occurred'});
+                console.log('Error retrieving book' + err);
+                res.send({'error': err});
             } else {
+                console.log('Success');
                 res.send(item);
             }
         });
@@ -44,21 +46,22 @@ exports.findAll = function(req, res) {
  
 exports.addbook = function(req, res) {
     var book = req.body;
-    console.log('Adding book: ' + JSON.stringify(book));
+    console.log("Adding book");
+    // console.log('Adding book: ' + JSON.stringify(book));
     db.collection('books', function(err, collection) {
         collection.insertOne(book, {safe:true}, function(err, result) {
             if (err) {
-                res.send({'error':'An error has occurred'});
+                console.log('Error adding book' + err);
+                res.send({'error': err});
             } else {
-                console.log('Success: ' + JSON.stringify(result.ops));
+                console.log('Success');
+                // console.log('Success: ' + JSON.stringify(result.ops));
                 res.send(result.ops[0]);
             }
         });
     });
 }
- //TODO
- //MUST CHECK IT
- //
+
 exports.updatebook = function(req, res) {
     var id = req.params.id;
     var book = req.body;
@@ -67,15 +70,16 @@ exports.updatebook = function(req, res) {
     }
     
     console.log('Updating book: ' + id);
-    console.log(JSON.stringify(book));
+    // console.log(JSON.stringify(book));
 
     db.collection('books', function(err, collection) {
         collection.updateOne({'_id':new ObjectId(id)}, book, {safe:true}, function(err, result) {
             if (err) {
                 console.log('Error updating book: ' + err);
-                res.send({'error':'An error has occurred'});
+                res.send({'error': err});
             } else {
-                console.log('' + result.ops + ' document(s) updated');
+                console.log('Success');
+                // console.log('' + result.ops + ' document(s) updated');
                 book._id = id;
                 res.send(book);
             }
@@ -89,7 +93,7 @@ exports.deletebook = function(req, res) {
     db.collection('books', function(err, collection) {
         collection.deleteOne({'_id':new ObjectId(id)}, {safe:true}, function(err, result) {
             if (err) {
-                res.send({'error':'An error has occurred - ' + err});
+                res.send({'error': err});
             } else {
                 console.log('' + result + ' document(s) deleted');
                 res.send(result);

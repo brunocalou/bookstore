@@ -67,6 +67,8 @@ booksApp.controller('BooksCtrl', function ($scope, $http, Book) {
     $scope.order = '_id';
     $scope.order_reverse = 'false';
     $scope.category = '';
+    $scope.show_error_msg = false;
+    $scope.error_msg = 'An error has occured';
 
     $scope.updateCategories = function(category) {
         $scope.category = category;
@@ -93,7 +95,7 @@ booksApp.controller('BooksCtrl', function ($scope, $http, Book) {
     
     $scope.editBook = function(book) {
         var book_undefined = false;
-        console.log(book);
+        // console.log(book);
         if(book == undefined) {
             book = {'image':'img/zoom-seach-icon.png'};
             book_undefined = true;
@@ -122,13 +124,10 @@ booksApp.controller('BooksCtrl', function ($scope, $http, Book) {
             var reader = new FileReader();
 
             reader.onload = function (e) {
-//                $('#book-form-cover img').attr('src', e.target.result);
                 $scope.current_book.image = e.target.result;
                 
                 //Apply the changes, since it was not made by angular
                 $scope.$apply();
-                
-//                console.log($scope.current_book.image);
             }
 
             reader.readAsDataURL($scope.image_file[0]);
@@ -151,12 +150,20 @@ booksApp.controller('BooksCtrl', function ($scope, $http, Book) {
                 data: $scope.current_book,
                 headers: {"Content-Type": "application/json;charset=utf-8"}
             };
-            $http(config).then(function (response) {
+            $http(config).error(function(data, status, headers, config, statusText) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                $scope.showError("Error " + status);
+              }).then(function (response) {
                 // The then function here is an opportunity to modify the response
                 console.log(response);
                 if(response.status == 200) {
                     //If it was ok, add the book the the list
                     $scope.books.push(response.data);
+                    $scope.updateBooksAndCloseModal();
+                } else {
+                    console.log(response);
+                    $scope.showError("Error " + response.data.error);
                 }
                 
             });
@@ -167,9 +174,12 @@ booksApp.controller('BooksCtrl', function ($scope, $http, Book) {
                 url: "/books/" + $scope.current_book._id,
                 data: $scope.current_book,
                 headers: {"Content-Type": "application/json;charset=utf-8"}
-                // headers: {"Content-Type": "application/json;charset=utf-8"}
             };
-            $http(config).then(function (response) {
+            $http(config).error(function(data, status, headers, config, statusText) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                $scope.showError("Error " + status);
+              }).then(function (response) {
                 // The then function here is an opportunity to modify the response
                 console.log(response);
                 if(response.status == 200) {
@@ -182,12 +192,13 @@ booksApp.controller('BooksCtrl', function ($scope, $http, Book) {
                             break;
                         }
                     }
+                    $scope.updateBooksAndCloseModal();
+                } else {
+                    console.log(response);
+                    $scope.showError("Error " + response.data.error);
                 }
             });
         }
-        $scope.checkNumberOfBooks();
-        $scope.updateCategories($scope.category);
-        $('#book-info-modal').modal('hide');
     };
     
     $scope.verifyBookInfo = function() {
@@ -210,7 +221,11 @@ booksApp.controller('BooksCtrl', function ($scope, $http, Book) {
             url: "/books/" + $scope.current_book._id,
             headers: {"Content-Type": "application/json;charset=utf-8"}
         };
-        $http(config).then(function (response) {
+        $http(config).error(function(data, status, headers, config, statusText) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                $scope.showError("Error " + status);
+              }).then(function (response) {
             if(response.data.ok && response.data.n) {
                 //Delete book locally
                 for(var i = 0; i < $scope.books.length; i++) {
@@ -220,21 +235,20 @@ booksApp.controller('BooksCtrl', function ($scope, $http, Book) {
                         break;
                     }
                 }
-            }
+                $scope.updateBooksAndCloseModal();
+            } else {
+                    console.log(response);
+                    $scope.showError("Error " + response.data.error);
+                }
         });
+    };
 
-        
-        
+    $scope.updateBooksAndCloseModal = function() {
         $scope.checkNumberOfBooks();
         $scope.updateCategories($scope.category);
         $('#book-info-modal').modal('hide');
+        $scope.hideError();
     };
-    
-//    $scope.order = function(predicate) {
-////        $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
-//        console.log(preditate);
-//        $scope.predicate = predicate;
-//    };
     
     $scope.checkNumberOfBooks = function() {
         console.log($scope.books.length);
@@ -243,7 +257,7 @@ booksApp.controller('BooksCtrl', function ($scope, $http, Book) {
         } else {
             $scope.no_books_found = true;
         }
-    }
+    };
 
     Book.query(function(data) {
         console.log(data);
@@ -251,21 +265,22 @@ booksApp.controller('BooksCtrl', function ($scope, $http, Book) {
         $scope.checkNumberOfBooks();
         $scope.updateCategories($scope.category);
   });
+
+    $scope.hideError = function() {
+        $scope.show_error_msg = false;
+        $scope.error_msg = 'An error has occured';
+    };
+
+    $scope.showError = function(message) {
+        $scope.show_error_msg = true;
+        $scope.error_msg = message;
+    };
+
+    $('#book-info-modal').on('hidden.bs.modal', function () {
+        $scope.hideError();
+    });
 });
 
 booksApp.factory("Book", function($resource) {
   return $resource("/books/:id");
 });
-
-// booksApp.controller("BooksCtrl", function($scope, Post) {
-//   Post.query(function(data) {
-//       console.log(data);
-//     $scope.books = data;
-//     $scope.checkNumberOfBooks();
-//     $scope.updateCategories($scope.category);
-//   });
-//   // Post.get({ id: 1 }, function(data) {
-//   //     console.log(data);
-//   //   $scope.books = data;
-//   // });
-// });

@@ -11,7 +11,7 @@ app.set('port', process.env.PORT || 3000);
 app.use(logger("combined"));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(logger('dev'));
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit:'5mb'}));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/books', book.findAll);
