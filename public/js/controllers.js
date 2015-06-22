@@ -62,7 +62,6 @@ booksApp.controller('BooksCtrl', function ($scope, $http, Book) {
     
     $scope.current_book;
     $scope.image_file;
-    $scope.test_id = -1;
     $scope.no_books_found = false;
     $scope.show_danger_zone = true;
     $scope.order = '_id';
@@ -146,30 +145,46 @@ booksApp.controller('BooksCtrl', function ($scope, $http, Book) {
         console.log("$scope.current_book._id " + $scope.current_book._id);
         if($scope.current_book._id == undefined) {
             //Send the new book to the server and retrieve the new id
-            Book.save($scope.current_book);
-
-            console.log("undefined");
-            var new_book = JSON.parse(JSON.stringify($scope.current_book));
-            new_book._id = $scope.test_id;
-            $scope.test_id -= 1;
-            
-            $scope.books.push(new_book);
+            // Book.save($scope.current_book);
+            var config = {
+                method: "POST",
+                url: "/books/",
+                data: $scope.current_book,
+                headers: {"Content-Type": "application/json;charset=utf-8"}
+            };
+            $http(config).then(function (response) {
+                // The then function here is an opportunity to modify the response
+                console.log(response);
+                if(response.status == 200) {
+                    //If it was ok, add the book the the list
+                    $scope.books.push(response.data);
+                }
+                
+            });
             
         } else {
-            //Send the book info to the server
-            // var book_to_send = $resource('/books/', $scope.current_book);
-            // var received_book = book_to_send.get({'_id':current_book._id}, function() {
-            //     // user.abc = true;
-            //     received_book.$save();
-            // });
-            //Change the book info locally
-            for(var i = 0; i < $scope.books.length; i++) {
-                var book = $scope.books[i];
-                if(book._id == $scope.current_book._id) {
-                    $scope.books[i] = JSON.parse(JSON.stringify($scope.current_book));
-                    break;
+            var config = {
+                method: "PUT",
+                url: "/books/" + $scope.current_book._id,
+                data: $scope.current_book,
+                headers: {"Content-Type": "application/json;charset=utf-8"}
+                // headers: {"Content-Type": "application/json;charset=utf-8"}
+            };
+            $http(config).then(function (response) {
+                // The then function here is an opportunity to modify the response
+                console.log(response);
+                if(response.status == 200) {
+                    //If it was ok, add the book the the list
+                    // $scope.books.push(response.data);
+                    for(var i = 0; i < $scope.books.length; i++) {
+                        var book = $scope.books[i];
+                        if(book._id == response.data._id) {
+                            $scope.books[i] = response.data;
+                            break;
+                        }
+                    }
                 }
-            }
+            });
         }
         $scope.checkNumberOfBooks();
         $scope.updateCategories($scope.category);
@@ -196,19 +211,20 @@ booksApp.controller('BooksCtrl', function ($scope, $http, Book) {
             url: "/books/" + $scope.current_book._id,
             headers: {"Content-Type": "application/json;charset=utf-8"}
         };
-        // $http({url: 'whatever/api/'+obj.id, method: 'DELETE'})
-
-        $http(config);
-        // Book.remove('/books/:id', $scope.current_book._id);
-        //Delete book locally
-        for(var i = 0; i < $scope.books.length; i++) {
-            var book = $scope.books[i];
-            if(book._id == $scope.current_book._id) {
-                $scope.books.splice(i, 1);
-//                $scope.books[i] = JSON.parse(JSON.stringify($scope.current_book));
-                break;
+        $http(config).then(function (response) {
+            if(response.data.ok && response.data.n) {
+                //Delete book locally
+                for(var i = 0; i < $scope.books.length; i++) {
+                    var book = $scope.books[i];
+                    if(book._id == $scope.current_book._id) {
+                        $scope.books.splice(i, 1);
+                        break;
+                    }
+                }
             }
-        }
+        });
+
+        
         
         $scope.checkNumberOfBooks();
         $scope.updateCategories($scope.category);

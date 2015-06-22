@@ -46,29 +46,37 @@ exports.addbook = function(req, res) {
     var book = req.body;
     console.log('Adding book: ' + JSON.stringify(book));
     db.collection('books', function(err, collection) {
-        collection.insert(book, {safe:true}, function(err, result) {
+        collection.insertOne(book, {safe:true}, function(err, result) {
             if (err) {
                 res.send({'error':'An error has occurred'});
             } else {
-                console.log('Success: ' + JSON.stringify(result[0]));
-                res.send(result[0]);
+                console.log('Success: ' + JSON.stringify(result.ops));
+                res.send(result.ops[0]);
             }
         });
     });
 }
- 
+ //TODO
+ //MUST CHECK IT
+ //
 exports.updatebook = function(req, res) {
     var id = req.params.id;
     var book = req.body;
+    if(book._id != undefined) {
+        delete book._id;
+    }
+    
     console.log('Updating book: ' + id);
     console.log(JSON.stringify(book));
+
     db.collection('books', function(err, collection) {
-        collection.update({'_id':new ObjectId(req.params.id)}, book, {safe:true}, function(err, result) {
+        collection.updateOne({'_id':new ObjectId(id)}, book, {safe:true}, function(err, result) {
             if (err) {
                 console.log('Error updating book: ' + err);
                 res.send({'error':'An error has occurred'});
             } else {
-                console.log('' + result + ' document(s) updated');
+                console.log('' + result.ops + ' document(s) updated');
+                book._id = id;
                 res.send(book);
             }
         });
@@ -79,12 +87,12 @@ exports.deletebook = function(req, res) {
     var id = req.params.id;
     console.log('Deleting book: ' + id);
     db.collection('books', function(err, collection) {
-        collection.remove({'_id':new ObjectId(req.params.id)}, {safe:true}, function(err, result) {
+        collection.deleteOne({'_id':new ObjectId(id)}, {safe:true}, function(err, result) {
             if (err) {
                 res.send({'error':'An error has occurred - ' + err});
             } else {
                 console.log('' + result + ' document(s) deleted');
-                res.send(req.body);
+                res.send(result);
             }
         });
     });
