@@ -151,6 +151,8 @@ body > section {
     border: 0;
     outline: 0;
     padding: 1em;
+    height: 100%;
+    width: 100%;
 }
 
 #book-list div {
@@ -163,7 +165,7 @@ body > section {
 
 #book-list img {
     height: 80%;
-    width: 100%;
+/*    width: 80%;*/
 }
 
 #book-list h3 {

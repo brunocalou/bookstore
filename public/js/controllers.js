@@ -145,7 +145,6 @@ booksApp.controller('BooksCtrl', function ($scope, $http, Book) {
         console.log("$scope.current_book._id " + $scope.current_book._id);
         if($scope.current_book._id == undefined) {
             //Send the new book to the server and retrieve the new id
-            // Book.save($scope.current_book);
             var config = {
                 method: "POST",
                 url: "/books/",
