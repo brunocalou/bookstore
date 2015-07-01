@@ -5,6 +5,7 @@ var Server = mongo.Server,
     Db = mongo.Db,
     BSON = mongo.BSONPure;
 
+//Connect to the remote server
 var server = new Server('mongodb://test:test@ds061721.mongolab.com:61721/heroku_gt4wxlmn', {auto_reconnect: true});
 db = new Db('bookdb', server);
 
