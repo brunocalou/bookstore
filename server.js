@@ -12,7 +12,7 @@ app.use(logger("combined"));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(logger('dev'));
 app.use(bodyParser.json({
-  limit: '5mb'
+  limit: '1mb'
 }));
 app.use(bodyParser.urlencoded({
   extended: true

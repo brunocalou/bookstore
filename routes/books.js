@@ -1,13 +1,13 @@
 var mongo = require('mongodb'),
     ObjectId = require('mongodb').ObjectID;
- 
+
 var Server = mongo.Server,
     Db = mongo.Db,
     BSON = mongo.BSONPure;
- 
-var server = new Server('localhost', 27017, {auto_reconnect: true});
+
+var server = new Server('mongodb://test:test@ds061721.mongolab.com:61721/heroku_gt4wxlmn', 27017, {auto_reconnect: true});
 db = new Db('bookdb', server);
- 
+
 db.open(function(err, db) {
     if(!err) {
         console.log("Connected to 'bookdb' database");
@@ -19,7 +19,7 @@ db.open(function(err, db) {
         });
     }
 });
- 
+
 exports.findById = function(req, res) {
     var id = {'_id': new ObjectId(req.params.id)};
     console.log('Retrieving book: ' + req.params.id);
@@ -35,7 +35,7 @@ exports.findById = function(req, res) {
         });
     });
 };
- 
+
 exports.findAll = function(req, res) {
     db.collection('books', function(err, collection) {
         collection.find().toArray(function(err, items) {
@@ -43,7 +43,7 @@ exports.findAll = function(req, res) {
         });
     });
 };
- 
+
 exports.addbook = function(req, res) {
     var book = req.body;
     console.log("Adding book");
@@ -68,7 +68,7 @@ exports.updatebook = function(req, res) {
     if(book._id != undefined) {
         delete book._id;
     }
-    
+
     console.log('Updating book: ' + id);
     // console.log(JSON.stringify(book));
 
@@ -86,7 +86,7 @@ exports.updatebook = function(req, res) {
         });
     });
 }
- 
+
 exports.deletebook = function(req, res) {
     var id = req.params.id;
     console.log('Deleting book: ' + id);
@@ -101,12 +101,12 @@ exports.deletebook = function(req, res) {
         });
     });
 }
- 
+
 /*--------------------------------------------------------------------------------------------------------------------*/
 // Populate database with sample data -- Only used once: the first time the application is started.
 // You'd typically not find this code in a real-life app, since the database would already exist.
 var populateDB = function() {
- 
+
     var books = [
     {
         'title': 'O guia do mochileiro das galáxias',
@@ -143,9 +143,9 @@ var populateDB = function() {
         'isbn': "004",
         'category': 'Fiction'
     }];
- 
+
     db.collection('books', function(err, collection) {
         collection.insert(books, {safe:true}, function(err, result) {});
     });
- 
+
 };
