@@ -5,7 +5,7 @@ var Server = mongo.Server,
     Db = mongo.Db,
     BSON = mongo.BSONPure;
 
-var server = new Server('mongodb://test:test@ds061721.mongolab.com:61721/heroku_gt4wxlmn', 27017, {auto_reconnect: true});
+var server = new Server('mongodb://test:test@ds061721.mongolab.com:61721/heroku_gt4wxlmn', {auto_reconnect: true});
 db = new Db('bookdb', server);
 
 db.open(function(err, db) {
@@ -17,6 +17,8 @@ db.open(function(err, db) {
                 populateDB();
             }
         });
+    } else {
+      console.log(err);
     }
 });
 
