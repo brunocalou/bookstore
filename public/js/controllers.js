@@ -51,7 +51,7 @@ booksApp.controller('BooksCtrl', function ($scope, $http, Book) {
         //     'category': 'Fiction'
         // }
     ];
-    
+
     $scope.categories = {
         'all': 0,
         'fiction': 0,
@@ -59,7 +59,7 @@ booksApp.controller('BooksCtrl', function ($scope, $http, Book) {
         'humor': 0,
         'horror': 0
     };
-    
+
     $scope.current_book;
     $scope.image_file;
     $scope.no_books_found = false;
@@ -74,14 +74,14 @@ booksApp.controller('BooksCtrl', function ($scope, $http, Book) {
         var total_categorised_books = 0;
 
         $scope.category = category;
-        
+
         //Reset the categories
         for(var category in $scope.categories) {
             $scope.categories[category] = 0;
         }
-        
+
         $scope.categories.all = $scope.books.length;
-        
+
         for(var i = 0; i < $scope.books.length; i++) {
             if($scope.books[i].category == undefined) {
                 continue;
@@ -97,7 +97,7 @@ booksApp.controller('BooksCtrl', function ($scope, $http, Book) {
 
         $scope.category['others'] = $scope.category['all'] - total_categorised_books;
     };
-    
+
     $scope.editBook = function(book) {
         var book_undefined = false;
         // console.log(book);
@@ -105,7 +105,7 @@ booksApp.controller('BooksCtrl', function ($scope, $http, Book) {
             book = {'image':'img/zoom-seach-icon.png'};
             book_undefined = true;
         }
-        
+
         $scope.current_book = JSON.parse(JSON.stringify(book));
 
         if(!book_undefined) {
@@ -114,23 +114,23 @@ booksApp.controller('BooksCtrl', function ($scope, $http, Book) {
         } else {
             $scope.show_danger_zone = false;
             $('#modal-save').attr("disabled", "");
-            
+
         }
         $scope.updateCategories($scope.category);
         $('#book-info-modal').modal('show');
     };
-    
+
     $scope.openFileDialog = function() {
         document.getElementById('fileInput').click();
     };
-    
+
     $scope.getImageFromDialog = function() {
         if ($scope.image_file && $scope.image_file[0]) {
             var reader = new FileReader();
 
             reader.onload = function (e) {
                 $scope.current_book.image = e.target.result;
-                
+
                 //Apply the changes, since it was not made by angular
                 $scope.$apply();
             }
@@ -138,13 +138,13 @@ booksApp.controller('BooksCtrl', function ($scope, $http, Book) {
             reader.readAsDataURL($scope.image_file[0]);
         }
     };
-    
+
     $scope.fileNameChanged = function(file) {
         $scope.image_file = file.files;
         console.log($scope.image_file);
         $scope.getImageFromDialog();
     };
-    
+
     $scope.save = function() {
         console.log("$scope.current_book._id " + $scope.current_book._id);
         if($scope.current_book._id == undefined) {
@@ -170,9 +170,9 @@ booksApp.controller('BooksCtrl', function ($scope, $http, Book) {
                     console.log(response);
                     $scope.showError("Error " + response.data.error);
                 }
-                
+
             });
-            
+
         } else {
             var config = {
                 method: "PUT",
@@ -205,19 +205,7 @@ booksApp.controller('BooksCtrl', function ($scope, $http, Book) {
             });
         }
     };
-    
-    $scope.verifyBookInfo = function() {
-        console.log($("#book-title").val());
-        if($("#book-title").val() != '' &&
-          $("#book-author").val() != '' &&
-          $("#book-category").val() != '' &&
-          $("#book-isbn").val() != '') {
-            $('#modal-save').removeAttr("disabled");
-        } else {
-            $('#modal-save').attr("disabled", "");
-        }
-    };
-    
+
     $scope.delete = function() {
         //Send delete message to the server
         console.log("deleting " + $scope.current_book._id);
@@ -254,7 +242,7 @@ booksApp.controller('BooksCtrl', function ($scope, $http, Book) {
         $('#book-info-modal').modal('hide');
         $scope.hideError();
     };
-    
+
     $scope.checkNumberOfBooks = function() {
         if($scope.books.length) {
             $scope.no_books_found = false;
@@ -303,7 +291,7 @@ angular.module('filters', []).filter('capitalize', function() {
 });
 
 
-booksApp.filter('findbooks', function() { 
+booksApp.filter('findbooks', function() {
 
     return function(books, text, category) {
         if(books.length == 0) {
@@ -323,7 +311,7 @@ booksApp.filter('findbooks', function() {
         }
 
         var filtered_books = [];
-        
+
         for(var i = 0; i < books.length; i++) {
             var book = books[i],
                 book_title = removeDiacritics(book.title.toLowerCase()),
