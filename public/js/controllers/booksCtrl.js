@@ -1,4 +1,4 @@
-angular.module('books').controller('booksCtrl', function($scope, $http) {
+angular.module('books').controller('booksCtrl', function($scope, booksAPI) {
   $scope.books = [
     // {
     //     'id': '0',
@@ -149,7 +149,7 @@ angular.module('books').controller('booksCtrl', function($scope, $http) {
     console.log("$scope.current_book._id " + $scope.current_book._id);
     if ($scope.current_book._id == undefined) {
       //Send the new book to the server and retrieve the new id
-      $http.post('/books/', $scope.current_book).error(function(data, status) {
+      booksAPI.addBook($scope.current_book).error(function(data, status) {
         // called asynchronously if an error occurs
         // or server returns response with an error status.
         $scope.showError("Error " + status);
@@ -166,7 +166,7 @@ angular.module('books').controller('booksCtrl', function($scope, $http) {
         }
       });
     } else {
-      $http.put("/books/" + $scope.current_book._id, $scope.current_book).error(function(data, status) {
+      booksAPI.updateBook($scope.current_book).error(function(data, status) {
         // called asynchronously if an error occurs
         // or server returns response with an error status.
         $scope.showError("Error " + status);
@@ -193,7 +193,7 @@ angular.module('books').controller('booksCtrl', function($scope, $http) {
 
   $scope.delete = function() {
     //Send delete message to the server
-    $http.delete("/books/" + $scope.current_book._id).error(function(data, status) {
+    booksAPI.deleteBook($scope.current_book).error(function(data, status) {
       // called asynchronously if an error occurs
       // or server returns response with an error status.
       $scope.showError("Error " + status);
@@ -245,7 +245,7 @@ angular.module('books').controller('booksCtrl', function($scope, $http) {
   });
 
   //Get all the books
-  $http.get("/books/").success(function(data) {
+  booksAPI.getBooks().success(function(data) {
     $scope.books = data;
     $scope.checkNumberOfBooks();
     $scope.updateCategories($scope.category);
