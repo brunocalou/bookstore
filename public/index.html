@@ -1,187 +1,183 @@
 <!doctype html>
-<html ng-app="app">
-    <head>
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/css/dropdowns-enhancement.css">
+<html ng-app="books">
 
-        <!-- Latest compiled and minified JavaScript -->
-        <script src="/js/jquery-2.1.4.min.js"></script>
-        <script src="/js/bootstrap.min.js"></script>
-        <script src="/js/dropdowns-enhancement.js"></script>
+<head>
 
-        <script src="/js/angular.min.js"></script>
-        <script src="/js/angular-route.min.js"></script>
-        <script src="/js/angular-resource.min.js"></script>
+  <link rel="stylesheet" href="/lib/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/dropdowns-enhancement.css">
 
-        <script src="js/controllers.js"></script>
+  <script src="/lib/jquery/jquery-2.1.4.min.js"></script>
+  <script src="/lib/bootstrap/bootstrap.min.js"></script>
+  <script src="/lib/bootstrap/dropdowns-enhancement.js"></script>
 
-        <link rel="stylesheet" href="/css/stylesheet.css">
+  <script src="/lib/angular/angular.min.js"></script>
+  <script src="/lib/angular/angular-route.min.js"></script>
+  <script src="/lib/angular/angular-resource.min.js"></script>
+
+  <script src="js/app.js"></script>
+  <script src="js/controllers/booksCtrl.js"></script>
+  <script src="js/filters/capitalizeFilter.js"></script>
+  <script src="js/filters/findbooksFilter.js"></script>
 
 
-    </head>
-    <body ng-controller="BooksCtrl">
+  <link rel="stylesheet" href="/css/stylesheet.css">
 
-        <div class="modal fade " id="book-info-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="exampleModalLabel">Book Viewer</h4>
+</head>
 
-                    </div>
-                    <div ng-show="show_error_msg" class="alert alert-danger" role="alert">
-                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                        <span class="sr-only">Error:</span>
-                        {{error_msg}}
-                    </div>
-                    <div class="modal-body">
-                        <form id="book-form" name="bookForm">
-                                <div class="form-group">
-                                    <label for="book-title" class="control-label">Title</label>
-                                    <input type="text" class="form-control" id="book-title"
-                                           ng-model="current_book.title" value="{{current_book.title}}"
-                                           ng-required="true">
-                                </div>
-                                <div class="form-group">
-                                    <label for="book-author" class="control-label">Author</label>
-                                    <input type="text" class="form-control" id="book-author"
-                                           ng-model="current_book.author" value="{{current_book.author}}"
-                                           ng-required="true">
-                                </div>
-                                <div class="form-group">
-                                    <label for="book-category" class="control-label">Category</label>
-                                    <input class="form-control" id="book-category"
-                                           ng-model="current_book.category" value="{{current_book.category}}"
-                                           ng-required="true">
-                                </div>
-                                <div class="form-group">
-                                    <label for="book-isbn" class="control-label">ISBN</label>
-                                    <input class="form-control" id="book-isbn"
-                                           ng-model="current_book.isbn" value="{{current_book.isbn}}"
-                                           ng-required="true">
-                                </div>
-                        </form>
-                        <div id="book-form-cover">
-<input type="file" id="fileInput" ng-model="confirmed" onchange="angular.element(this).scope().fileNameChanged(this)" style="visibility:hidden;position:absolute;top:-50;left:-50"/>
-                            <a href="" ng-click="openFileDialog()"><img ng-src="{{current_book.image}}" ng-model="current_book.image" /></a>
-                            </input>
-                        </div>
-            <div id="modal-danger-zone" ng-show="show_danger_zone">
-                <h4>Danger Zone</h4>
-                <button id="modal-delete" type="button" class="btn btn-primary btn-danger" ng-click="delete()">Delete Book</button>
-            </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                        <button id="modal-save" type="button" class="btn btn-primary btn-danger" ng-click="save()" ng-disabled="bookForm.$invalid">Save</button>
-                    </div>
-                </div>
-            </div>
+<body ng-controller="booksCtrl">
+
+  <div class="modal fade " id="book-info-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="exampleModalLabel">Book Viewer</h4>
+
         </div>
-
-        <section id="top-container" class="parallax">
-            <div id="top">
-                <div id="title">
-                    <h1>Bookstore</h1>
-                </div>
-                <!--data-spy="affix" data-offset-top="500"-->
-                <div id="search-bar" class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for..." ng-model="search.title">
-
-                    <div class="input-group-btn">
-                        <button type="button" class="btn btn-danger">
-                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                        </button>
-                    </div>
-                </div><!-- /input-group -->
+        <div ng-show="show_error_msg" class="alert alert-danger" role="alert">
+          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+          <span class="sr-only">Error:</span>
+          {{error_msg}}
+        </div>
+        <div class="modal-body">
+          <form id="book-form" name="bookForm">
+            <div class="form-group">
+              <label for="book-title" class="control-label">Title</label>
+              <input type="text" class="form-control" id="book-title" ng-model="current_book.title" value="{{current_book.title}}" ng-required="true">
             </div>
-        </section>
-
-        <section id="sidemenu">
-            <button class="btn btn-md btn-danger" type="button" ng-click="editBook()">
-                            <span class="glyphicon glyphicon-plus"></span> Add a book
-            </button>
-
-            <div id="categories" class="btn-group" data-toggle="buttons">
-                <label class="categories-header btn">
-                    <input type="checkbox">Categories
-                </label>
-                <label class="btn active" ng-click="updateCategories('')">
-                    <input type="radio" name="categories">All ({{categories.all}})
-                </label>
-                <label ng-repeat="(name, quantity) in categories" ng-if="name!='all'" class="btn" ng-click="updateCategories(name)">
-                    <input type="radio" name="categories">{{name | capitalize}} ({{quantity}})
-                </label>
+            <div class="form-group">
+              <label for="book-author" class="control-label">Author</label>
+              <input type="text" class="form-control" id="book-author" ng-model="current_book.author" value="{{current_book.author}}" ng-required="true">
             </div>
-
-        </section>
-
-        <section id="books">
-            <section id="filters">
-                   <div class="input-group-btn">
-                        <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" data-placeholder="false">Organize by <span class="caret"></span></button>
-                        <ul id="categories-list" class="dropdown-menu" role="menu" >
-                            <li>
-                                <input type="radio" id="organize-none" name="organize-options" value="_id" ng-model="order" checked="checked">
-                                <label for="organize-none">None</label>
-                            </li>
-                            <li>
-                                <input type="radio" id="organize-title" name="organize-options" value="title" ng-model="order">
-                                <label for="organize-title">Title</label>
-                            </li>
-                            <li>
-                                <input type="radio" id="organize-author" name="organize-options" value="author" ng-model="order">
-                                <label for="organize-author">Author</label>
-                            </li>
-                            <li>
-                                <input type="radio" id="organize-category" name="organize-options" value="category" ng-model="order">
-                                <label for="organize-category">Category</label>
-                            </li>
-                            <li>
-                                <input type="radio" id="organize-isbn" name="organize-options" value="isbn" ng-model="order">
-                                <label for="organize-isbn">ISBN</label>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="input-group-btn">
-                        <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" data-placeholder="false">Order <span class="caret"></span></button>
-                        <ul id="order-list" class="dropdown-menu" role="menu" >
-                            <li>
-                                <input type="radio" id="organize-order-asc" name="organize-order" ng-click="order_reverse = false" checked="checked">
-                                <label for="organize-order-asc">Ascending</label>
-                            </li>
-                            <li>
-                                <input type="radio" id="organize-order-desc" name="organize-order" ng-click="order_reverse = true">
-                                <label for="organize-order-desc">Descending</label>
-                            </li>
-                       </ul>
-                    </div>
-            </section>
-
-
-            <div id="book-list" >
-                <div ng-repeat="book in filtered_books = (books | findbooks:search.title:category | orderBy:order:order_reverse)">
-                <!-- <div ng-repeat="book in filtered_books = (books | filter:{'title':search.title, 'category':category} | orderBy:order:order_reverse)"> -->
-                    <button ng-click="editBook(book)">
-                        <img ng-src="{{book.image}}" />
-                        <h3>{{book.author}}</h3>
-                        <p>{{book.title}}</p>
-                    </button>
-                </div>
-                <h1 ng-show="filtered_books.length == 0" id="book-list-empty-message">No books were found</h1>
+            <div class="form-group">
+              <label for="book-category" class="control-label">Category</label>
+              <input class="form-control" id="book-category" ng-model="current_book.category" value="{{current_book.category}}" ng-required="true">
             </div>
-        </section>
-        <section id="footer">
-            <div>
-                <p>Created by Bruno Calou Alves</p>
-                <p>Copyright ©</p>
+            <div class="form-group">
+              <label for="book-isbn" class="control-label">ISBN</label>
+              <input class="form-control" id="book-isbn" ng-model="current_book.isbn" value="{{current_book.isbn}}" ng-required="true">
             </div>
-            <div id="footer-logos">
-                <a href="https://github.com/brunocalou/bookstore">
-                    <img src="img/GitHub-Mark-32px.png" />
-                </a>
-            </div>
-        </section>
-    </body>
+          </form>
+          <div id="book-form-cover">
+            <input type="file" id="fileInput" ng-model="confirmed" onchange="angular.element(this).scope().fileNameChanged(this)" style="visibility:hidden;position:absolute;top:-50;left:-50" />
+            <a href="" ng-click="openFileDialog()">
+              <img ng-src="{{current_book.image}}" ng-model="current_book.image" />
+            </a>
+            </input>
+          </div>
+          <div id="modal-danger-zone" ng-show="show_danger_zone">
+            <h4>Danger Zone</h4>
+            <button id="modal-delete" type="button" class="btn btn-primary btn-danger" ng-click="delete()">Delete Book</button>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button id="modal-save" type="button" class="btn btn-primary btn-danger" ng-click="save()" ng-disabled="bookForm.$invalid">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section id="top-container" class="parallax">
+    <div id="top">
+      <div id="title">
+        <h1>Bookstore</h1>
+      </div>
+      <!--data-spy="affix" data-offset-top="500"-->
+      <div id="search-bar" class="input-group">
+        <input type="text" class="form-control" placeholder="Search for..." ng-model="search.title">
+
+        <div class="input-group-btn">
+          <button type="button" class="btn btn-danger">
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+      <!-- /input-group -->
+    </div>
+  </section>
+
+  <section id="sidemenu">
+    <button class="btn btn-md btn-danger" type="button" ng-click="editBook()">
+      <span class="glyphicon glyphicon-plus"></span> Add a book
+    </button>
+
+    <div id="categories" class="btn-group" data-toggle="buttons">
+      <label class="categories-header btn">
+        <input type="checkbox">Categories
+      </label>
+      <label class="btn active" ng-click="updateCategories('')">
+        <input type="radio" name="categories">All ({{categories.all}})
+      </label>
+      <label ng-repeat="(name, quantity) in categories" ng-if="name!='all'" class="btn" ng-click="updateCategories(name)">
+        <input type="radio" name="categories">{{name | capitalize}} ({{quantity}})
+      </label>
+    </div>
+
+  </section>
+
+  <section id="books">
+    <section id="filters">
+      <div class="input-group-btn">
+        <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" data-placeholder="false">Organize by
+          <span class="caret"></span>
+        </button>
+        <ul id="categories-list" class="dropdown-menu" role="menu">
+          <li>
+            <input type="radio" id="organize-none" name="organize-options" value="_id" ng-model="order" checked="checked">
+            <label for="organize-none">None</label>
+          </li>
+          <li>
+            <input type="radio" id="organize-title" name="organize-options" value="title" ng-model="order">
+            <label for="organize-title">Title</label>
+          </li>
+          <li>
+            <input type="radio" id="organize-author" name="organize-options" value="author" ng-model="order">
+            <label for="organize-author">Author</label>
+          </li>
+          <li>
+            <input type="radio" id="organize-category" name="organize-options" value="category" ng-model="order">
+            <label for="organize-category">Category</label>
+          </li>
+          <li>
+            <input type="radio" id="organize-isbn" name="organize-options" value="isbn" ng-model="order">
+            <label for="organize-isbn">ISBN</label>
+          </li>
+        </ul>
+      </div>
+      <div class="input-group-btn">
+        <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" data-placeholder="false">Order
+          <span class="caret"></span>
+        </button>
+        <ul id="order-list" class="dropdown-menu" role="menu">
+          <li>
+            <input type="radio" id="organize-order-asc" name="organize-order" ng-click="order_reverse = false" checked="checked">
+            <label for="organize-order-asc">Ascending</label>
+          </li>
+          <li>
+            <input type="radio" id="organize-order-desc" name="organize-order" ng-click="order_reverse = true">
+            <label for="organize-order-desc">Descending</label>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+
+    <div id="book-list">
+      <div ng-repeat="book in filtered_books = (books | findbooks:search.title:category | orderBy:order:order_reverse)">
+        <!-- <div ng-repeat="book in filtered_books = (books | filter:{'title':search.title, 'category':category} | orderBy:order:order_reverse)"> -->
+        <button ng-click="editBook(book)">
+          <img ng-src="{{book.image}}" />
+          <h3>{{book.author}}</h3>
+          <p>{{book.title}}</p>
+        </button>
+      </div>
+      <h1 ng-show="filtered_books.length == 0" id="book-list-empty-message">No books were found</h1>
+    </div>
+  </section>
+  <section id="footer" ng-include="'view/footer.html'"></section>
+</body>
+
 </html>
