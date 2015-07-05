@@ -58,8 +58,8 @@ angular.module('books').controller('booksCtrl', function($scope, booksAPI) {
     'horror': 0
   };
 
-  $scope.current_book;
-  $scope.image_file;
+  $scope.current_book = {};
+  $scope.image_file = "";
   $scope.no_books_found = false;
   $scope.show_danger_zone = true;
   $scope.order = '_id';
@@ -69,37 +69,34 @@ angular.module('books').controller('booksCtrl', function($scope, booksAPI) {
   $scope.error_msg = 'An error has occured';
 
   $scope.updateCategories = function(category) {
-    var total_categorised_books = 0;
+    var book_category;
 
     $scope.category = category;
 
     //Reset the categories
-    for (var category in $scope.categories) {
-      $scope.categories[category] = 0;
+    for (book_category in $scope.categories) {
+      $scope.categories[book_category] = 0;
     }
 
     $scope.categories.all = $scope.books.length;
 
     for (var i = 0; i < $scope.books.length; i++) {
-      if ($scope.books[i].category == undefined) {
+      if ($scope.books[i].category === undefined) {
         continue;
       }
-      for (var category in $scope.categories) {
-        if (($scope.books[i].category).toLowerCase() == category) {
-          $scope.categories[category] += 1;
-          total_categorised_books += 1;
+      for (book_category in $scope.categories) {
+        if (($scope.books[i].category).toLowerCase() == book_category) {
+          $scope.categories[book_category] += 1;
           continue;
         }
       }
     }
-
-    $scope.category['others'] = $scope.category['all'] - total_categorised_books;
   };
 
   $scope.editBook = function(book) {
     var book_undefined = false;
     // console.log(book);
-    if (book == undefined) {
+    if (book === undefined) {
       book = {
         'image': 'img/zoom-seach-icon.png'
       };
@@ -133,7 +130,7 @@ angular.module('books').controller('booksCtrl', function($scope, booksAPI) {
 
         //Apply the changes, since it was not made by angular
         $scope.$apply();
-      }
+      };
 
       reader.readAsDataURL($scope.image_file[0]);
     }
@@ -147,7 +144,7 @@ angular.module('books').controller('booksCtrl', function($scope, booksAPI) {
 
   $scope.save = function() {
     console.log("$scope.current_book._id " + $scope.current_book._id);
-    if ($scope.current_book._id == undefined) {
+    if ($scope.current_book._id === undefined) {
       //Send the new book to the server and retrieve the new id
       booksAPI.addBook($scope.current_book).error(function(data, status) {
         // called asynchronously if an error occurs
