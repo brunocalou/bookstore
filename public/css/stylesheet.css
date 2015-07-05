@@ -204,11 +204,11 @@ body > section {
     margin-bottom: 5em;
 }
 
+#book-category,
 #book-isbn {
     width: 10em;
 }
 
-#book-category,
 #book-author{
     width: 15em;
 }

@@ -53,7 +53,9 @@
             </div>
             <div class="form-group">
               <label for="book-category" class="control-label">Category</label>
-              <input class="form-control" id="book-category" ng-model="current_book.category" value="{{current_book.category}}" ng-required="true">
+              <select class="form-control" id="book-category" ng-model="current_book.category" ng-required="true">
+                <option ng-repeat="(name, quantity) in categories" ng-if="name!='all'">{{name | capitalize}}</option>
+              </select>
             </div>
             <div class="form-group">
               <label for="book-isbn" class="control-label">ISBN</label>
