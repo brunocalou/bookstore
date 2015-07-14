@@ -1,9 +1,14 @@
 {
-    "name": "bookstore",
-    "description": "Bookstore Application",
-    "version": "0.0.1",
-    "private": true,
-    "dependencies": {
-        "express": "4.x"
-    }
+  "name": "bookstore",
+  "description": "Bookstore Application",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "4.x",
+    "mongodb": "^2.0.36"
+  },
+  "engines": {
+    "node": "0.12.x",
+    "npm": "2.13.x"
+  }
 }

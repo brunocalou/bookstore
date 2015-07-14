@@ -1,23 +1,25 @@
 var mongo = require('mongodb'),
-    ObjectId = require('mongodb').ObjectID;
+    ObjectId = require('mongodb').ObjectID,
+    MongoClient = require('mongodb').MongoClient,
+    db = '';
 
-var Server = mongo.Server,
-    Db = mongo.Db,
-    BSON = mongo.BSONPure;
 
-var server = new Server('localhost', 27017, {auto_reconnect: true});
-db = new Db('bookdb', server);
+// Connect to the server
+MongoClient.connect('mongodb://test:test@ds061721.mongolab.com:61721/heroku_gt4wxlmn', function(err, database) {
+// MongoClient.connect('mongodb://localhost:27017/bookdb', function(err, get_db) {
+  if(!err) {
+    console.log("Connected to the database");
+    db = database;
+    db.collection('books', {strict:true}, function(err, collection) {
+      if (err) {
+        console.log("The 'books' collection doesn't exist. Creating it with sample data...");
+        populateDB();
+      }
+    });
 
-db.open(function(err, db) {
-    if(!err) {
-        console.log("Connected to 'bookdb' database");
-        db.collection('books', {strict:true}, function(err, collection) {
-            if (err) {
-                console.log("The 'books' collection doesn't exist. Creating it with sample data...");
-                populateDB();
-            }
-        });
-    }
+  } else {
+    console.log(err);
+  }
 });
 
 exports.findById = function(req, res) {
