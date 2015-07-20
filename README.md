@@ -1,6 +1,8 @@
 # bookstore
 Project for the Distributed Systems class at UFRJ
 
+![bookstore](https://cloud.githubusercontent.com/assets/5948318/8789942/2888d9b4-2f1e-11e5-97c0-1624f7807282.png)
+
 It's hosted at https://meanbookstore.herokuapp.com/
 
 ## Build and run
